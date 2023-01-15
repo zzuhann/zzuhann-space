@@ -1,13 +1,13 @@
-interface UserInfoType {
-  userName: string;
-  email: string;
-  userImg: string;
-  userIntro: string;
+import { AuthType } from "../common/authType";
+
+export enum AuthActionKind {
+  LOGGEDIN = "LOGGEDIN",
+  LOGGEDOUT = "LOGGEDOUT",
 }
 
-export interface AuthType {
-  isLoggedIn: boolean;
-  userInfo: UserInfoType;
+export interface AuthActionType {
+  type: AuthActionKind;
+  payload: AuthType;
 }
 
 export const authState: AuthType = {
@@ -19,16 +19,6 @@ export const authState: AuthType = {
     userIntro: "",
   },
 };
-
-export enum AuthActionKind {
-  LOGGEDIN = "LOGGEDIN",
-  LOGGEDOUT = "LOGGEDOUT",
-}
-
-export interface AuthActionType {
-  type: AuthActionKind;
-  payload: AuthType;
-}
 
 const authReducer = (state = authState, action: AuthActionType) => {
   switch (action.type) {
