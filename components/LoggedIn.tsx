@@ -5,8 +5,10 @@ import { userDocType, AuthType } from "../common/authType";
 import { AuthActionKind } from "../store/auth-reducer";
 import { AuthContext } from "../store/auth-context";
 import { getFirestoreDataById } from "../common/firebaseFun";
+import { useLoadingService } from "../store/loading-context";
 
 const LoggedIn = () => {
+  const { showLoading, hideLoading } = useLoadingService();
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const { state, dispatch } = useContext(AuthContext);
@@ -26,6 +28,7 @@ const LoggedIn = () => {
 
   function signIn() {
     if (emailRef.current && passwordRef.current) {
+      showLoading();
       signInWithEmailAndPassword(
         auth,
         emailRef.current.value,
@@ -34,6 +37,7 @@ const LoggedIn = () => {
         .then((userCredential) => {
           const user = userCredential.user;
           getFirestoreDataById("users", user.uid, updateloggedInState);
+          hideLoading();
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -48,7 +52,7 @@ const LoggedIn = () => {
       <label htmlFor="email">信箱</label>
       <input type="text" id="email" ref={emailRef} />
       <label htmlFor="password">密碼</label>
-      <input type="text" id="password" ref={passwordRef} />
+      <input type="password" id="password" ref={passwordRef} />
       <div onClick={signIn}>送出</div>
     </>
   );
