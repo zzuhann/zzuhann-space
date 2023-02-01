@@ -9,10 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.11.0",
+    "@mui/material": "^5.11.7",
+    "@mui/styled-engine-sc": "^5.11.0",
     "@next/font": "13.1.1",
     "@tiptap/extension-blockquote": "2.0.0-beta.209",
+    "@tiptap/extension-code-block-lowlight": "2.0.0-beta.209",
     "@tiptap/extension-highlight": "2.0.0-beta.209",
     "@tiptap/extension-horizontal-rule": "2.0.0-beta.209",
+    "@tiptap/extension-image": "2.0.0-beta.209",
     "@tiptap/extension-typography": "2.0.0-beta.209",
     "@tiptap/react": "2.0.0-beta.209",
     "@tiptap/starter-kit": "2.0.0-beta.209",
@@ -22,6 +29,8 @@
     "eslint": "8.31.0",
     "eslint-config-next": "13.1.1",
     "firebase": "^9.15.0",
+    "highlight.js": "^11.7.0",
+    "lowlight": "^2.8.1",
     "next": "13.1.1",
     "prosemirror-commands": "^1.5.0",
     "prosemirror-dropcursor": "^1.6.1",
@@ -37,7 +46,8 @@
     "react-dom": "18.2.0",
     "react-loading": "^2.0.3",
     "styled-components": "^5.3.6",
-    "typescript": "4.9.4"
+    "typescript": "4.9.4",
+    "utils": "link:@mui/material/utils"
   },
   "devDependencies": {
     "@types/styled-components": "^5.1.26",
