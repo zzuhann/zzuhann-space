@@ -12,9 +12,10 @@ import css from "highlight.js/lib/languages/css";
 import js from "highlight.js/lib/languages/javascript";
 import ts from "highlight.js/lib/languages/typescript";
 import html from "highlight.js/lib/languages/xml";
-// load all highlight.js languages
 import { lowlight } from "lowlight";
 import CodeBlock from "./CodeBlock";
+import { ChangeEvent } from "react";
+import { uploadStorageImage } from "../common/firebaseFun";
 
 lowlight.registerLanguage("html", html);
 lowlight.registerLanguage("css", css);
@@ -25,13 +26,35 @@ const Menubar = ({
   addImage,
   addCodeStyle,
 }: {
-  addImage: () => void;
+  addImage: (e: ChangeEvent<HTMLInputElement>) => void;
   addCodeStyle: () => void;
 }) => {
   return (
     <>
-      <PhotoIcon sx={{ cursor: "pointer" }} onClick={addImage} />
+      <ImageLabel addImage={addImage} />
       <CodeIcon onClick={addCodeStyle} />
+    </>
+  );
+};
+
+const ImageLabel = ({
+  addImage,
+}: {
+  addImage: (e: ChangeEvent<HTMLInputElement>) => void;
+}) => {
+  return (
+    <>
+      <label htmlFor="image">
+        <PhotoIcon sx={{ cursor: "pointer" }} />
+      </label>
+      <input
+        type="file"
+        accept="image/*"
+        id="image"
+        name="image"
+        style={{ display: "none" }}
+        onChange={(e) => addImage(e)}
+      />
     </>
   );
 };
@@ -60,12 +83,21 @@ const Tiptap = () => {
     }
   };
 
-  const addImage = () => {
-    const url = window.prompt("URL");
+  const attachImageAfterEditor = (url: string) => {
+    if (!editor) return;
+    editor.chain().focus().setImage({ src: url }).run();
+  };
 
-    if (url && editor) {
-      editor.chain().focus().setImage({ src: url }).run();
+  const addImage = (e: ChangeEvent<HTMLInputElement>) => {
+    const allFiles = e.target.files;
+    if (allFiles && editor) {
+      const image = allFiles[0];
+      uploadStorageImage(image.name, image, attachImageAfterEditor);
     }
+
+    // if (url && editor) {
+    //   editor.chain().focus().setImage({ src: url }).run();
+    // }
   };
 
   return (
