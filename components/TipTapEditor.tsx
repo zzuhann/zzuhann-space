@@ -67,7 +67,11 @@ const Tiptap = () => {
       Typography,
       HorizontalRule,
       Blockquote,
-      Image,
+      Image.configure({
+        HTMLAttributes: {
+          class: "article-img",
+        },
+      }),
       CodeBlockLowlight.extend({
         addNodeView() {
           return ReactNodeViewRenderer(CodeBlock);

@@ -22,8 +22,10 @@
 }
 
 .ProseMirror img {
-  max-width: 100%;
-  height: auto;
+  width: 600px;
+  height: 350px;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .ProseMirror hr {
@@ -93,4 +95,11 @@
 }
 .ProseMirror pre .hljs-strong {
   font-weight: 700;
+}
+
+.article-img {
+  width: 600px;
+  height: 350px;
+  -o-object-fit: cover;
+     object-fit: cover;
 }/*# sourceMappingURL=Tiptap.module.css.map */

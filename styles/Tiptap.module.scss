@@ -18,8 +18,9 @@
   color: #616161;
 }
 .ProseMirror img {
-  max-width: 100%;
-  height: auto;
+  width: 600px;
+  height: 350px;
+  object-fit: cover;
 }
 .ProseMirror hr {
   margin: 0.5rem 0;
@@ -99,4 +100,10 @@
       font-weight: 700;
     }
   }
+}
+
+.article-img {
+  width: 600px;
+  height: 350px;
+  object-fit: cover;
 }
