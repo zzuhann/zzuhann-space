@@ -1,18 +1,21 @@
-import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 import { db, storage } from "../firebase-config";
 import { userDocType } from "./authType";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { Dispatch, SetStateAction } from "react";
 
 export async function getFirestoreDataById(
   collection: string,
   id: string,
-  fn: (user: userDocType) => void
+  fn?: (user: userDocType) => void,
+  setState?: Dispatch<SetStateAction<string[]>>
 ) {
   const docRef = doc(db, collection, id);
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
-    fn(docSnap.data() as userDocType);
+    if (fn) fn(docSnap.data() as userDocType);
+    if (setState) setState(docSnap.data().tags);
   } else {
     console.log("No such document!");
   }

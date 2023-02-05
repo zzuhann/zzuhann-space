@@ -1,8 +1,21 @@
-import { RefObject, useRef, useState } from "react";
+import {
+  Dispatch,
+  RefObject,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { ColumnContainer, RowContainer } from "../../components/Container";
 import Tiptap from "../../components/TipTapEditor";
 import styled from "styled-components";
-import { uploadFirestore, uploadStorageImage } from "../../common/firebaseFun";
+import {
+  getFirestoreDataById,
+  uploadStorageImage,
+} from "../../common/firebaseFun";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
+import Chip from "@mui/material/Chip";
 
 const Title = ({ titleRef }: { titleRef: RefObject<HTMLInputElement> }) => {
   return (
@@ -22,6 +35,54 @@ const Cover = ({ coverRef }: { coverRef: RefObject<HTMLInputElement> }) => {
   );
 };
 
+const Tags = ({
+  tags,
+  setTags,
+}: {
+  tags: string[];
+  setTags: Dispatch<SetStateAction<string[]>>;
+}) => {
+  const [newOption, setNewOption] = useState("");
+  const [allOptions, setAllOptions] = useState(tags);
+
+  const handleInputChange = (event: any, newValue: string) => {
+    setNewOption(newValue);
+  };
+
+  return (
+    <Autocomplete
+      multiple
+      freeSolo
+      value={allOptions}
+      options={tags}
+      onChange={(event, newValue) => {
+        if (newValue.length > tags.length) {
+          setTags([...newValue]);
+        }
+        setAllOptions([...newValue]);
+      }}
+      onInputChange={handleInputChange}
+      renderTags={(tagValue, getTagProps) =>
+        tagValue.map((option, index) => (
+          <Chip label={option} {...getTagProps({ index })} key={index} />
+        ))
+      }
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label="Options"
+          onBlur={() => {
+            if (newOption.length === 0) return;
+
+            setAllOptions([...allOptions, newOption]);
+            setNewOption("");
+          }}
+        />
+      )}
+    />
+  );
+};
+
 const Button = styled.div`
   border: solid 1px black;
 `;
@@ -30,6 +91,7 @@ const AddPost = () => {
   const titleRef = useRef<HTMLInputElement>(null);
   const coverRef = useRef<HTMLInputElement>(null);
   const [context, setContext] = useState<string>("");
+  const [tags, setTags] = useState<string[]>([]);
 
   const onSubmit = () => {
     if (!titleRef.current || !coverRef.current) return;
@@ -55,10 +117,15 @@ const AddPost = () => {
     }
   };
 
+  useEffect(() => {
+    getFirestoreDataById("allTags", "tags", undefined, setTags);
+  }, []);
+
   return (
     <ColumnContainer>
       <Title titleRef={titleRef} />
       <Cover coverRef={coverRef} />
+      <Tags tags={tags} setTags={setTags} />
       <Tiptap context={context} setContext={setContext} />
       <Button onClick={onSubmit}>送出</Button>
     </ColumnContainer>
