@@ -60,8 +60,10 @@ const ImageLabel = ({
 };
 
 const Tiptap = ({
+  context,
   setContext,
 }: {
+  context: string;
   setContext: Dispatch<SetStateAction<string>>;
 }) => {
   const editor = useEditor({
@@ -82,15 +84,10 @@ const Tiptap = ({
         },
       }).configure({ lowlight }),
     ],
-    // content: description,
+    content: context,
     onUpdate: ({ editor }) => {
       setContext(editor.getHTML());
     },
-    // onUpdate: ({ editor }) => {
-    //   console.log(editor.getHTML());
-
-    //   onChange(editor.getHTML());
-    // },
   });
 
   const addCodeStyle = () => {

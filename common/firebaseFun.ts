@@ -1,8 +1,7 @@
-import { doc, getDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore";
 import { db, storage } from "../firebase-config";
 import { userDocType } from "./authType";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { Editor } from "@tiptap/react";
 
 export async function getFirestoreDataById(
   collection: string,
@@ -19,10 +18,26 @@ export async function getFirestoreDataById(
   }
 }
 
+interface IAddFireStore {
+  target: string;
+  data: {
+    title: string;
+    content: string;
+    createTime: Date;
+    updateTime: Date;
+    author: string;
+    tag: string[];
+    cover?: string;
+    url?: string;
+  };
+}
+
 export function uploadStorageImage(
   photoName: string,
   file: File,
-  fn: (url: string) => void
+  fn?: (url: string) => void,
+  isAddArticle?: boolean,
+  articleInfo?: IAddFireStore
 ) {
   const storageRef = ref(storage, `images/${photoName}`);
   const uploadTask = uploadBytesResumable(storageRef, file);
@@ -46,12 +61,32 @@ export function uploadStorageImage(
       console.log(error);
     },
     () => {
-      // Handle successful uploads on complete
-      // For instance, get the download URL: https://firebasestorage.googleapis.com/...
       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
         console.log("File available at", downloadURL);
-        fn(downloadURL);
+        if (isAddArticle && articleInfo) {
+          const articleData = {
+            target: articleInfo.target,
+            data: {
+              title: articleInfo.data.title,
+              content: articleInfo.data.content,
+              createTime: articleInfo.data.createTime,
+              updateTime: articleInfo.data.updateTime,
+              author: articleInfo.data.author,
+              tag: articleInfo.data.tag,
+              url: downloadURL,
+            },
+          };
+          uploadFirestore(articleData);
+        }
+        if (fn) {
+          fn(downloadURL);
+        }
       });
     }
   );
+}
+
+export async function uploadFirestore(props: IAddFireStore) {
+  const docRef = doc(collection(db, props.target));
+  await setDoc(docRef, props.data);
 }
