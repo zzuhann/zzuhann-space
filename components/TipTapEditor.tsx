@@ -14,7 +14,7 @@ import ts from "highlight.js/lib/languages/typescript";
 import html from "highlight.js/lib/languages/xml";
 import { lowlight } from "lowlight";
 import CodeBlock from "./CodeBlock";
-import { ChangeEvent } from "react";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { uploadStorageImage } from "../common/firebaseFun";
 
 lowlight.registerLanguage("html", html);
@@ -30,10 +30,10 @@ const Menubar = ({
   addCodeStyle: () => void;
 }) => {
   return (
-    <>
+    <div>
       <ImageLabel addImage={addImage} />
       <CodeIcon onClick={addCodeStyle} />
-    </>
+    </div>
   );
 };
 
@@ -59,7 +59,11 @@ const ImageLabel = ({
   );
 };
 
-const Tiptap = () => {
+const Tiptap = ({
+  setContext,
+}: {
+  setContext: Dispatch<SetStateAction<string>>;
+}) => {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -78,7 +82,15 @@ const Tiptap = () => {
         },
       }).configure({ lowlight }),
     ],
-    content: "<p>Hello World! 🌎️</p>",
+    // content: description,
+    onUpdate: ({ editor }) => {
+      setContext(editor.getHTML());
+    },
+    // onUpdate: ({ editor }) => {
+    //   console.log(editor.getHTML());
+
+    //   onChange(editor.getHTML());
+    // },
   });
 
   const addCodeStyle = () => {
@@ -98,10 +110,6 @@ const Tiptap = () => {
       const image = allFiles[0];
       uploadStorageImage(image.name, image, attachImageAfterEditor);
     }
-
-    // if (url && editor) {
-    //   editor.chain().focus().setImage({ src: url }).run();
-    // }
   };
 
   return (
