@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db, storage } from "../firebase-config";
 import { userDocType } from "./authType";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -92,4 +92,19 @@ export function uploadStorageImage(
 export async function uploadFirestore(props: IAddFireStore) {
   const docRef = doc(collection(db, props.target));
   await setDoc(docRef, props.data);
+}
+
+interface Props<T extends object> {
+  data: T;
+  target: string;
+  id: string;
+}
+
+export async function updateFirestoreById<T extends object>({
+  target,
+  id,
+  data,
+}: Props<T>) {
+  const targetRef = doc(db, target, id);
+  await updateDoc(targetRef, data);
 }

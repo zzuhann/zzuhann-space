@@ -11,6 +11,7 @@ import Tiptap from "../../components/TipTapEditor";
 import styled from "styled-components";
 import {
   getFirestoreDataById,
+  updateFirestoreById,
   uploadStorageImage,
 } from "../../common/firebaseFun";
 import Autocomplete from "@mui/material/Autocomplete";
@@ -38,12 +39,15 @@ const Cover = ({ coverRef }: { coverRef: RefObject<HTMLInputElement> }) => {
 const Tags = ({
   tags,
   setTags,
+  allOptions,
+  setAllOptions,
 }: {
   tags: string[];
   setTags: Dispatch<SetStateAction<string[]>>;
+  allOptions: string[];
+  setAllOptions: Dispatch<SetStateAction<string[]>>;
 }) => {
   const [newOption, setNewOption] = useState("");
-  const [allOptions, setAllOptions] = useState(tags);
 
   const handleInputChange = (event: any, newValue: string) => {
     setNewOption(newValue);
@@ -92,6 +96,7 @@ const AddPost = () => {
   const coverRef = useRef<HTMLInputElement>(null);
   const [context, setContext] = useState<string>("");
   const [tags, setTags] = useState<string[]>([]);
+  const [allOptions, setAllOptions] = useState(tags);
 
   const onSubmit = () => {
     if (!titleRef.current || !coverRef.current) return;
@@ -110,11 +115,26 @@ const AddPost = () => {
           createTime: new Date(),
           updateTime: new Date(),
           author: "zzuhann",
-          tag: ["notyet"],
+          tag: allOptions,
         },
       };
       uploadStorageImage(cover.name, cover, undefined, true, articleInfo);
+      updateFirestoreById({
+        target: "allTags",
+        id: "tags",
+        data: { tags: allOptions },
+      });
+      clear();
     }
+  };
+
+  const clear = () => {
+    if (titleRef.current && coverRef.current) {
+      titleRef.current.value = "";
+      coverRef.current.value = "";
+    }
+    setAllOptions([]);
+    setContext("");
   };
 
   useEffect(() => {
@@ -125,7 +145,12 @@ const AddPost = () => {
     <ColumnContainer>
       <Title titleRef={titleRef} />
       <Cover coverRef={coverRef} />
-      <Tags tags={tags} setTags={setTags} />
+      <Tags
+        tags={tags}
+        setTags={setTags}
+        allOptions={allOptions}
+        setAllOptions={setAllOptions}
+      />
       <Tiptap context={context} setContext={setContext} />
       <Button onClick={onSubmit}>送出</Button>
     </ColumnContainer>
