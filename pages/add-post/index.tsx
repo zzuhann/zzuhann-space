@@ -12,6 +12,7 @@ import styled from "styled-components";
 import {
   getFirestoreDataById,
   updateFirestoreById,
+  uploadFirestore,
   uploadStorageImage,
 } from "../../common/firebaseFun";
 import Autocomplete from "@mui/material/Autocomplete";
@@ -23,15 +24,6 @@ const Title = ({ titleRef }: { titleRef: RefObject<HTMLInputElement> }) => {
     <RowContainer>
       <label htmlFor="title">標題</label>
       <input id="title" type="text" name="title" ref={titleRef} />
-    </RowContainer>
-  );
-};
-
-const Cover = ({ coverRef }: { coverRef: RefObject<HTMLInputElement> }) => {
-  return (
-    <RowContainer>
-      <label htmlFor="cover">封面</label>
-      <input id="cover" type="file" accept="image/*" ref={coverRef} />
     </RowContainer>
   );
 };
@@ -93,45 +85,39 @@ const Button = styled.div`
 
 const AddPost = () => {
   const titleRef = useRef<HTMLInputElement>(null);
-  const coverRef = useRef<HTMLInputElement>(null);
   const [context, setContext] = useState<string>("");
   const [tags, setTags] = useState<string[]>([]);
   const [allOptions, setAllOptions] = useState(tags);
 
   const onSubmit = () => {
-    if (!titleRef.current || !coverRef.current) return;
+    if (!titleRef.current) return;
 
     const title = titleRef.current.value;
-    const coverFiles = coverRef.current.files;
 
-    if (coverFiles) {
-      if (!title || coverFiles.length === 0 || !context) return;
-      const cover = coverFiles[0];
-      const articleInfo = {
-        target: "articles",
-        data: {
-          title,
-          content: context,
-          createTime: new Date(),
-          updateTime: new Date(),
-          author: "zzuhann",
-          tag: allOptions,
-        },
-      };
-      uploadStorageImage(cover.name, cover, undefined, true, articleInfo);
-      updateFirestoreById({
-        target: "allTags",
-        id: "tags",
-        data: { tags: allOptions },
-      });
-      clear();
-    }
+    if (!title || !context) return;
+    const articleInfo = {
+      target: "articles",
+      data: {
+        title,
+        content: context,
+        createTime: new Date(),
+        updateTime: new Date(),
+        author: "zzuhann",
+        tag: allOptions,
+      },
+    };
+    uploadFirestore(articleInfo);
+    updateFirestoreById({
+      target: "allTags",
+      id: "tags",
+      data: { tags: allOptions },
+    });
+    clear();
   };
 
   const clear = () => {
-    if (titleRef.current && coverRef.current) {
+    if (titleRef.current) {
       titleRef.current.value = "";
-      coverRef.current.value = "";
     }
     setAllOptions([]);
     setContext("");
@@ -144,7 +130,6 @@ const AddPost = () => {
   return (
     <ColumnContainer>
       <Title titleRef={titleRef} />
-      <Cover coverRef={coverRef} />
       <Tags
         tags={tags}
         setTags={setTags}
