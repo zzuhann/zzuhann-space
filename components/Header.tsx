@@ -1,9 +1,14 @@
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import styled from "styled-components";
+import { AuthType, userDocType } from "../common/authType";
 import { HEADER_NAV, HEADER_NAV_CONTEXT } from "../common/constant";
+import { getFirestoreDataById } from "../common/firebaseFun";
+import { auth } from "../firebase-config";
 import { AuthContext } from "../store/auth-context";
+import { AuthActionKind } from "../store/auth-reducer";
 
 const FlexContainer = styled.div`
   display: flex;
@@ -16,7 +21,53 @@ const NavLink = styled(Link)`
 `;
 
 export const Header = () => {
-  const { state } = useContext(AuthContext);
+  const { state, dispatch } = useContext(AuthContext);
+
+  const loggedOut = () => {
+    const userData: AuthType = {
+      isLoggedIn: false,
+      userInfo: {
+        email: "",
+        userName: "",
+        userImg: "",
+        userIntro: "",
+      },
+    };
+    signOut(auth)
+      .then(() => {
+        dispatch({ type: AuthActionKind.LOGGEDOUT, payload: userData });
+      })
+      .catch((error) => {
+        console.log(error, "log out");
+      });
+  };
+
+  useEffect(() => {
+    function updateloggedInState(user: userDocType) {
+      const userData: AuthType = {
+        isLoggedIn: true,
+        userInfo: {
+          email: user.email,
+          userName: user.name,
+          userImg: user.img,
+          userIntro: user.intro,
+        },
+      };
+      dispatch({ type: AuthActionKind.LOGGEDIN, payload: userData });
+    }
+
+    const checkIsLoggedIn = () => {
+      if (!state.isLoggedIn) {
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+            getFirestoreDataById("users", user.uid, updateloggedInState);
+          }
+        });
+      }
+    };
+    checkIsLoggedIn();
+  }, [state, dispatch]);
+
   return (
     <FlexContainer>
       <FlexContainer>
@@ -35,9 +86,14 @@ export const Header = () => {
           {HEADER_NAV_CONTEXT["about-me"]}
         </NavLink>
         {state.isLoggedIn && (
-          <NavLink href={`/${HEADER_NAV.ADD_POST}`}>
-            {HEADER_NAV_CONTEXT["add-post"]}
-          </NavLink>
+          <>
+            <NavLink href={`/${HEADER_NAV.ADD_POST}`}>
+              {HEADER_NAV_CONTEXT["add-post"]}
+            </NavLink>
+            <div style={{ marginLeft: "25px" }} onClick={loggedOut}>
+              {HEADER_NAV_CONTEXT["logged-out"]}
+            </div>
+          </>
         )}
       </FlexContainer>
       <FlexContainer className="right-side"></FlexContainer>
