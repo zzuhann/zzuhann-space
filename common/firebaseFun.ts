@@ -21,18 +21,20 @@ export async function getFirestoreDataById(
   }
 }
 
+export interface IArticle {
+  title: string;
+  content: string;
+  createTime: Date;
+  updateTime: Date;
+  author: string;
+  tag: string[];
+  cover?: string;
+  url?: string;
+}
+
 interface IAddFireStore {
   target: string;
-  data: {
-    title: string;
-    content: string;
-    createTime: Date;
-    updateTime: Date;
-    author: string;
-    tag: string[];
-    cover?: string;
-    url?: string;
-  };
+  data: IArticle;
 }
 
 export function uploadStorageImage(

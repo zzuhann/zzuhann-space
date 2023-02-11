@@ -13,7 +13,6 @@ import {
   getFirestoreDataById,
   updateFirestoreById,
   uploadFirestore,
-  uploadStorageImage,
 } from "../../common/firebaseFun";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
