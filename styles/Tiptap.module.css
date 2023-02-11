@@ -1,0 +1,105 @@
+.ProseMirror > * + * {
+  margin-top: 0.75em;
+}
+
+.ProseMirror ul,
+.ProseMirror ol {
+  padding: 0 1rem;
+}
+
+.ProseMirror h1,
+.ProseMirror h2,
+.ProseMirror h3,
+.ProseMirror h4,
+.ProseMirror h5,
+.ProseMirror h6 {
+  line-height: 1.1;
+}
+
+.ProseMirror code {
+  background-color: rgba(97, 97, 97, 0.1);
+  color: #616161;
+}
+
+.ProseMirror img {
+  width: 600px;
+  height: 350px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.ProseMirror hr {
+  margin: 0.5rem 0;
+  border-top: 1px solid black;
+  height: 2px;
+}
+
+.ProseMirror blockquote {
+  padding-left: 0.5rem;
+  border-left: 2px solid rgba(13, 13, 13, 0.5);
+  margin-left: 1rem;
+} 
+.ProseMirror pre {
+  background: #0d0d0d;
+  color: #fff;
+  font-family: "JetBrainsMono", monospace;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+}
+.ProseMirror pre code {
+  color: inherit;
+  padding: 0;
+  background: none;
+  font-size: 0.8rem;
+}
+.ProseMirror pre .hljs-comment,
+.ProseMirror pre .hljs-quote {
+  color: #616161;
+}
+.ProseMirror pre .hljs-variable,
+.ProseMirror pre .hljs-template-variable,
+.ProseMirror pre .hljs-attribute,
+.ProseMirror pre .hljs-tag,
+.ProseMirror pre .hljs-name,
+.ProseMirror pre .hljs-regexp,
+.ProseMirror pre .hljs-link,
+.ProseMirror pre .hljs-name,
+.ProseMirror pre .hljs-selector-id,
+.ProseMirror pre .hljs-selector-class {
+  color: #f98181;
+}
+.ProseMirror pre .hljs-number,
+.ProseMirror pre .hljs-meta,
+.ProseMirror pre .hljs-built_in,
+.ProseMirror pre .hljs-builtin-name,
+.ProseMirror pre .hljs-literal,
+.ProseMirror pre .hljs-type,
+.ProseMirror pre .hljs-params {
+  color: #fbbc88;
+}
+.ProseMirror pre .hljs-string,
+.ProseMirror pre .hljs-symbol,
+.ProseMirror pre .hljs-bullet {
+  color: #b9f18d;
+}
+.ProseMirror pre .hljs-title,
+.ProseMirror pre .hljs-section {
+  color: #faf594;
+}
+.ProseMirror pre .hljs-keyword,
+.ProseMirror pre .hljs-selector-tag {
+  color: #70cff8;
+}
+.ProseMirror pre .hljs-emphasis {
+  font-style: italic;
+}
+.ProseMirror pre .hljs-strong {
+  font-weight: 700;
+}
+
+.article-img {
+  width: 600px;
+  height: 350px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}/*# sourceMappingURL=Tiptap.module.css.map */
