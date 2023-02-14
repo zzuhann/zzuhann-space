@@ -2,19 +2,21 @@ import styled from "styled-components";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase-config";
 import { useEffect, useState } from "react";
-import { IArticle } from "../../../common/firebaseFun";
-
-const Container = styled.div``;
+import MyArticle from "../../../components/myArticles/MyArticle";
+import { IArticleFirestore } from "../../../common/articleType";
 
 const AllMyArticles = () => {
-  const [articles, setArticles] = useState<IArticle[]>([]);
+  const [articles, setArticles] = useState<IArticleFirestore[]>([]);
 
   async function getTargetCollections() {
     const q = query(collection(db, "articles"));
     const querySnapshot = await getDocs(q);
-    const newArticles: IArticle[] = [];
+    const newArticles: IArticleFirestore[] = [];
     querySnapshot.forEach((doc) => {
-      newArticles.push(doc.data() as IArticle);
+      newArticles.push({
+        id: doc.id,
+        ...doc.data(),
+      } as IArticleFirestore);
     });
     setArticles(newArticles);
   }
@@ -22,7 +24,7 @@ const AllMyArticles = () => {
   useEffect(() => {
     getTargetCollections();
   }, []);
-  return <Container>home</Container>;
+  return <MyArticle articles={articles} setArticles={setArticles} />;
 };
 
 export default AllMyArticles;

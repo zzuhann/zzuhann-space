@@ -1,8 +1,19 @@
-import { collection, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  setDoc,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import { db, storage } from "../firebase-config";
 import { userDocType } from "./authType";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { Dispatch, SetStateAction } from "react";
+import { IAddFireStore } from "./articleType";
 
 export async function getFirestoreDataById(
   collection: string,
@@ -21,20 +32,8 @@ export async function getFirestoreDataById(
   }
 }
 
-export interface IArticle {
-  title: string;
-  content: string;
-  createTime: Date;
-  updateTime: Date;
-  author: string;
-  tag: string[];
-  cover?: string;
-  url?: string;
-}
-
-interface IAddFireStore {
-  target: string;
-  data: IArticle;
+export async function delFireStoreDataById(targetCollec: string, id: string) {
+  await deleteDoc(doc(db, targetCollec, id));
 }
 
 export function uploadStorageImage(
