@@ -32,6 +32,17 @@ export async function getFirestoreDataById(
   }
 }
 
+export async function getDataById(collection: string, id: string) {
+  const docRef = doc(db, collection, id);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    return docSnap.data();
+  } else {
+    console.log("No such document!");
+  }
+}
+
 export async function delFireStoreDataById(targetCollec: string, id: string) {
   await deleteDoc(doc(db, targetCollec, id));
 }

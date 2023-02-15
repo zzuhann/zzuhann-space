@@ -1,5 +1,6 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
+import Link from "next/link";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
@@ -12,7 +13,7 @@ import { RowContainer } from "../Container";
 import { Button } from "./MyArticle.style";
 import { Dispatch, SetStateAction } from "react";
 import { delFireStoreDataById } from "../../common/firebaseFun";
-import { useLoadingService } from "../../store/loading-context";
+// import { useLoadingService } from "../../store/loading-context";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -40,7 +41,7 @@ type Props = {
 };
 
 export default function MyArticle({ articles, setArticles }: Props) {
-  const { showLoading, hideLoading } = useLoadingService();
+  //   const { showLoading, hideLoading } = useLoadingService();
   function newDateToFormatString(date: Date) {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
@@ -58,12 +59,10 @@ export default function MyArticle({ articles, setArticles }: Props) {
   function deleteArticle(index: number) {
     const collection = "articles";
     const target = articles[index].id;
-    showLoading();
     if (target) {
       delFireStoreDataById(collection, target);
       deleteArticleUpdateState(index);
     }
-    hideLoading();
   }
 
   return (
@@ -88,7 +87,9 @@ export default function MyArticle({ articles, setArticles }: Props) {
               <StyledTableCell>
                 <RowContainer>
                   <Button>預覽</Button>
-                  <Button>編輯</Button>
+                  <Button>
+                    <Link href={`articles/edit/${article.id}`}>編輯</Link>
+                  </Button>
                   <Button onClick={() => deleteArticle(index)}>刪除</Button>
                 </RowContainer>
               </StyledTableCell>
