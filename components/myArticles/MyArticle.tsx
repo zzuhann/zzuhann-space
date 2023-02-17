@@ -13,6 +13,7 @@ import { RowContainer } from "../Container";
 import { Button } from "./MyArticle.style";
 import { Dispatch, SetStateAction } from "react";
 import { delFireStoreDataById } from "../../common/firebaseFun";
+import { newDateToFormatString } from "../../common/commonFun";
 // import { useLoadingService } from "../../store/loading-context";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -42,13 +43,6 @@ type Props = {
 
 export default function MyArticle({ articles, setArticles }: Props) {
   //   const { showLoading, hideLoading } = useLoadingService();
-  function newDateToFormatString(date: Date) {
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-
-    return `${year}/${month}/${day}`;
-  }
 
   function deleteArticleUpdateState(index: number) {
     const newArticles = [...articles];
