@@ -1,8 +1,8 @@
 {
   "HEADER": {
-    "ARTICLE": "Articles",
-    "ABOUT_ME": "About Me",
-    "ADD_POST": "Add Post",
-    "LOGGED_OUT": "Log Out"
+    "article": "Articles",
+    "about_me": "About Me",
+    "add_post": "Add Post",
+    "logged_out": "Log Out"
   }
 }

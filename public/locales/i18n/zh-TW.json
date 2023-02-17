@@ -1,8 +1,8 @@
 {
   "HEADER": {
-    "ARTICLE": "所有文章",
-    "ABOUT_ME": "關於我",
-    "ADD_POST": "新增文章",
-    "LOGGED_OUT": "登出"
+    "article": "所有文章",
+    "about_me": "關於我",
+    "add_post": "新增文章",
+    "logged_out": "登出"
   }
 }

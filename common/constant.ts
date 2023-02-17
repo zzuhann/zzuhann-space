@@ -1,6 +1,6 @@
 export enum HEADER_NAV {
-  ARTICLE = "ARTICLE",
-  ABOUT_ME = "ABOUT_ME",
-  ADD_POST = "ADD_POST",
-  LOGGED_OUT = "LOGGED_OUT",
+  ARTICLE = "article",
+  ABOUT_ME = "about_me",
+  ADD_POST = "add_post",
+  LOGGED_OUT = "logged_out",
 }
