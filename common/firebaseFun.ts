@@ -1,8 +1,18 @@
-import { collection, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { db, storage } from "../firebase-config";
 import { userDocType } from "./authType";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { Dispatch, SetStateAction } from "react";
+import { IAddFireStore } from "./articleType";
 
 export async function getFirestoreDataById(
   collection: string,
@@ -21,18 +31,33 @@ export async function getFirestoreDataById(
   }
 }
 
-interface IAddFireStore {
-  target: string;
-  data: {
-    title: string;
-    content: string;
-    createTime: Date;
-    updateTime: Date;
-    author: string;
-    tag: string[];
-    cover?: string;
-    url?: string;
-  };
+export async function getDataById(collection: string, id: string) {
+  const docRef = doc(db, collection, id);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    return docSnap.data();
+  } else {
+    console.log("No such document!");
+  }
+}
+
+export async function getCollection(
+  targetCollec: string,
+  fn: (arr: []) => void
+) {
+  const q = query(collection(db, targetCollec));
+
+  const querySnapshot = await getDocs(q);
+  const arr: any = [];
+  querySnapshot.forEach((doc) => {
+    arr.push({ id: doc.id, ...doc.data() });
+  });
+  fn(arr);
+}
+
+export async function delFireStoreDataById(targetCollec: string, id: string) {
+  await deleteDoc(doc(db, targetCollec, id));
 }
 
 export function uploadStorageImage(

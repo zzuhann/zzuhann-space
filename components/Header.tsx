@@ -4,11 +4,12 @@ import Link from "next/link";
 import { useContext, useEffect } from "react";
 import styled from "styled-components";
 import { AuthType, userDocType } from "../common/authType";
-import { HEADER_NAV, HEADER_NAV_CONTEXT } from "../common/constant";
+import { HEADER_NAV } from "../common/constant";
 import { getFirestoreDataById } from "../common/firebaseFun";
 import { auth } from "../firebase-config";
 import { AuthContext } from "../store/auth-context";
 import { AuthActionKind } from "../store/auth-reducer";
+import { useTranslation } from "react-i18next";
 
 const FlexContainer = styled.div`
   display: flex;
@@ -22,6 +23,7 @@ const NavLink = styled(Link)`
 
 export const Header = () => {
   const { state, dispatch } = useContext(AuthContext);
+  const { t, i18n } = useTranslation();
 
   const loggedOut = () => {
     const userData: AuthType = {
@@ -80,23 +82,30 @@ export const Header = () => {
           />
         </Link>
         <NavLink href={`/${HEADER_NAV.ARTICLE}`}>
-          {HEADER_NAV_CONTEXT["article"]}
+          {t(`HEADER.${HEADER_NAV["ARTICLE"]}`)}
         </NavLink>
         <NavLink href={`/${HEADER_NAV.ABOUT_ME}`}>
-          {HEADER_NAV_CONTEXT["about-me"]}
+          {t(`HEADER.${HEADER_NAV["ABOUT_ME"]}`)}
         </NavLink>
         {state.isLoggedIn && (
           <>
             <NavLink href={`/${HEADER_NAV.ADD_POST}`}>
-              {HEADER_NAV_CONTEXT["add-post"]}
+              {t(`HEADER.${HEADER_NAV["ADD_POST"]}`)}
             </NavLink>
             <div style={{ marginLeft: "25px" }} onClick={loggedOut}>
-              {HEADER_NAV_CONTEXT["logged-out"]}
+              {t(`HEADER.${HEADER_NAV["LOGGED_OUT"]}`)}
             </div>
           </>
         )}
       </FlexContainer>
-      <FlexContainer className="right-side"></FlexContainer>
+      <FlexContainer className="right-side">
+        <button onClick={() => i18n.changeLanguage("en")} type="button">
+          英文
+        </button>
+        <button onClick={() => i18n.changeLanguage("zh")} type="button">
+          中文
+        </button>
+      </FlexContainer>
     </FlexContainer>
   );
 };

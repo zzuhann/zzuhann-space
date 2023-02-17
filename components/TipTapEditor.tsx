@@ -84,9 +84,9 @@ const Tiptap = ({
         },
       }).configure({ lowlight }),
     ],
-    content: context,
+    content: `${context}`,
     onUpdate: ({ editor }) => {
-      setContext(editor.getHTML());
+      setContext(() => editor.getHTML());
     },
   });
 
