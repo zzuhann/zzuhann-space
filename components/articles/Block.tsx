@@ -29,7 +29,6 @@ type Props = {
 };
 
 const Block = ({ articles }: Props) => {
-  const TODAY = new Date();
   return (
     <ColumnContainer>
       {articles.map((item) => (
@@ -37,7 +36,9 @@ const Block = ({ articles }: Props) => {
           <Text>
             {newDateToFormatString(new Date(item.createTime.seconds * 1000))}
           </Text>
-          <TAG>{item.tag?.[0]}</TAG>
+          <Link href={`articles/tags/${item.tag}`}>
+            <TAG>{item.tag}</TAG>
+          </Link>
           <Link href={`articles/${item.id}`}>
             <H1>{item.title}</H1>
           </Link>

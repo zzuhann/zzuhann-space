@@ -4,7 +4,7 @@ export interface IArticle {
   createTime: Date;
   updateTime: Date;
   author: string;
-  tag: string[];
+  tag: string;
   cover?: string;
   url?: string;
 }
@@ -20,7 +20,7 @@ export interface IArticleFirestore {
   createTime: ITimeFirestore;
   updateTime: ITimeFirestore;
   author: string;
-  tag: string[];
+  tag: string;
   id?: string;
 }
 

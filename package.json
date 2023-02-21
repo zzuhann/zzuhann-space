@@ -30,6 +30,7 @@
     "eslint-config-next": "13.1.1",
     "firebase": "^9.15.0",
     "highlight.js": "^11.7.0",
+    "html-react-parser": "^3.0.9",
     "i18next": "^22.4.9",
     "i18next-browser-languagedetector": "^7.0.1",
     "lowlight": "^2.8.1",

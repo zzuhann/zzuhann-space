@@ -15,7 +15,8 @@ const EditArticle = () => {
   const { postId } = router.query;
   const [articleDetail, setArticleDetail] = useState<IArticle>();
   const [tags, setTags] = useState<string[]>([]);
-  const [allOptions, setAllOptions] = useState<string[]>(tags);
+  const [newOption, setNewOption] = useState<string>("");
+  // const [allOptions, setAllOptions] = useState<string[]>(tags);
   const [context, setContext] = useState<string>("");
   const titleRef = useRef<HTMLInputElement>(null);
 
@@ -30,13 +31,13 @@ const EditArticle = () => {
       content: context,
       title: newTitle,
       updateTime: new Date(),
-      tag: allOptions,
+      tag: newOption,
     };
     updateFirestoreById({ target, id: id as string, data: newArticle });
     updateFirestoreById({
       target: "allTags",
       id: "tags",
-      data: { tags: allOptions },
+      data: { tags: newOption },
     });
     clear();
   };
@@ -45,7 +46,7 @@ const EditArticle = () => {
     if (titleRef.current) {
       titleRef.current.value = "";
     }
-    setAllOptions([]);
+    setNewOption("");
     setContext("");
   };
 
@@ -56,7 +57,7 @@ const EditArticle = () => {
       response.then((res) => {
         const articleInfo = res as IArticle;
         setArticleDetail(articleInfo);
-        setAllOptions(articleInfo.tag);
+        setNewOption(articleInfo.tag);
         setContext(articleInfo.content);
       });
     };
@@ -81,8 +82,9 @@ const EditArticle = () => {
       <Tags
         tags={tags}
         setTags={setTags}
-        allOptions={allOptions}
-        setAllOptions={setAllOptions}
+        newOption={newOption}
+        setNewOption={setNewOption}
+        defaultTag={articleDetail?.tag}
       />
       {context && <Tiptap context={context} setContext={setContext} />}
       <Button onClick={onSubmit}>送出</Button>
