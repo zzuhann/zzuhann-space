@@ -7,6 +7,7 @@ import {
   query,
   setDoc,
   updateDoc,
+  where,
 } from "firebase/firestore";
 import { db, storage } from "../firebase-config";
 import { userDocType } from "./authType";
@@ -111,4 +112,26 @@ export async function updateFirestoreById<T extends object>({
 }: Props<T>) {
   const targetRef = doc(db, target, id);
   await updateDoc(targetRef, data);
+}
+
+export async function getDataByWhere(
+  targetCollec: string,
+  targetKey: string,
+  targetValue: string,
+  fn: (item: any) => void
+) {
+  const q = query(
+    collection(db, targetCollec),
+    where(targetKey, "==", targetValue)
+  );
+
+  const querySnapshot = await getDocs(q);
+  const arr: any = [];
+  querySnapshot.forEach((doc) => {
+    arr.push({
+      id: doc.id,
+      ...doc.data(),
+    });
+  });
+  fn(arr);
 }

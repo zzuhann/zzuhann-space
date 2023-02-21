@@ -12,7 +12,7 @@ const AddPost = () => {
   const titleRef = useRef<HTMLInputElement>(null);
   const [context, setContext] = useState<string>("");
   const [tags, setTags] = useState<string[]>([]);
-  const [allOptions, setAllOptions] = useState(tags);
+  const [newOption, setNewOption] = useState<string>("");
 
   const onSubmit = () => {
     if (!titleRef.current) return;
@@ -28,14 +28,14 @@ const AddPost = () => {
         createTime: new Date(),
         updateTime: new Date(),
         author: "zzuhann",
-        tag: allOptions,
+        tag: newOption,
       },
     };
     uploadFirestore(articleInfo);
     updateFirestoreById({
       target: "allTags",
       id: "tags",
-      data: { tags: allOptions },
+      data: { tags: tags },
     });
     clear();
   };
@@ -44,7 +44,7 @@ const AddPost = () => {
     if (titleRef.current) {
       titleRef.current.value = "";
     }
-    setAllOptions([]);
+    setNewOption("");
     setContext("");
   };
 
@@ -58,8 +58,8 @@ const AddPost = () => {
       <Tags
         tags={tags}
         setTags={setTags}
-        allOptions={allOptions}
-        setAllOptions={setAllOptions}
+        newOption={newOption}
+        setNewOption={setNewOption}
       />
       <Tiptap context={context} setContext={setContext} />
       <Button onClick={onSubmit}>送出</Button>

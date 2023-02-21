@@ -1,5 +1,4 @@
-import styled from "styled-components";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, query, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase-config";
 import { useEffect, useState } from "react";
 import MyArticle from "../../../components/myArticles/MyArticle";

@@ -1,7 +1,6 @@
 import { Dispatch, RefObject, SetStateAction, useState } from "react";
 import { RowContainer } from "../Container";
 import Autocomplete from "@mui/material/Autocomplete";
-import Chip from "@mui/material/Chip";
 import TextField from "@mui/material/TextField";
 import styled from "styled-components";
 
@@ -21,47 +20,41 @@ export const Title = ({
 export const Tags = ({
   tags,
   setTags,
-  allOptions,
-  setAllOptions,
+  newOption,
+  setNewOption,
+  defaultTag,
 }: {
   tags: string[];
   setTags: Dispatch<SetStateAction<string[]>>;
-  allOptions: string[];
-  setAllOptions: Dispatch<SetStateAction<string[]>>;
+  newOption: string;
+  setNewOption: Dispatch<SetStateAction<string>>;
+  defaultTag?: string;
 }) => {
-  const [newOption, setNewOption] = useState("");
-
   const handleInputChange = (event: any, newValue: string) => {
     setNewOption(newValue);
   };
 
+  console.log(newOption);
+
   return (
     <Autocomplete
-      multiple
       freeSolo
-      value={allOptions}
+      value={newOption}
       options={tags}
       onChange={(event, newValue) => {
-        if (newValue.length > tags.length) {
-          setTags([...newValue]);
+        if (!newValue) return;
+        if (!tags.includes(newValue)) {
+          setTags([...tags, newValue]);
         }
-        setAllOptions([...newValue]);
       }}
       onInputChange={handleInputChange}
-      renderTags={(tagValue, getTagProps) =>
-        tagValue.map((option, index) => (
-          <Chip label={option} {...getTagProps({ index })} key={index} />
-        ))
-      }
       renderInput={(params) => (
         <TextField
           {...params}
           label="Options"
           onBlur={() => {
             if (newOption.length === 0) return;
-
-            setAllOptions([...allOptions, newOption]);
-            setNewOption("");
+            setTags([...tags, newOption]);
           }}
         />
       )}
