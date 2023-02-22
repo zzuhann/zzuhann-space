@@ -29,7 +29,7 @@ const SingleArticle = () => {
       <p>
         {newDateToFormatString(new Date(article.createTime.seconds * 1000))}
       </p>
-      <Link href={`tags/${article.tag[0]}`}>
+      <Link href={`/tags/${article.tag[0]}`}>
         <p>{article.tag[0]}</p>
       </Link>
       <p>{parse(article.content)}</p>

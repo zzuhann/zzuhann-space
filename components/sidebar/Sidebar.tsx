@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { ColumnContainer } from "../Container";
+import { Latest } from "./Latest";
 import { Profile } from "./Profile";
 
 const Box = styled.div`
@@ -12,7 +13,7 @@ export const Sidebar = () => {
   return (
     <ColumnContainer>
       <Profile />
-      <Box />
+      <Latest />
       <Box />
     </ColumnContainer>
   );

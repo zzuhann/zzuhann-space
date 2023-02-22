@@ -36,10 +36,10 @@ const Block = ({ articles }: Props) => {
           <Text>
             {newDateToFormatString(new Date(item.createTime.seconds * 1000))}
           </Text>
-          <Link href={`articles/tags/${item.tag}`}>
+          <Link href={`/articles/tags/${item.tag}`}>
             <TAG>{item.tag}</TAG>
           </Link>
-          <Link href={`articles/${item.id}`}>
+          <Link href={`/articles/${item.id}`}>
             <H1>{item.title}</H1>
           </Link>
         </RowContainer>
