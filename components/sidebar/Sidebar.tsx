@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { ColumnContainer } from "../Container";
+import { Category } from "./Category";
 import { Latest } from "./Latest";
 import { Profile } from "./Profile";
 
@@ -14,7 +15,7 @@ export const Sidebar = () => {
     <ColumnContainer>
       <Profile />
       <Latest />
-      <Box />
+      <Category />
     </ColumnContainer>
   );
 };
