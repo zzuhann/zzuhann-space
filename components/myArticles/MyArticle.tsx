@@ -82,7 +82,7 @@ export default function MyArticle({ articles, setArticles }: Props) {
                 <RowContainer>
                   <Button>預覽</Button>
                   <Button>
-                    <Link href={`articles/edit/${article.id}`}>編輯</Link>
+                    <Link href={`/articles/edit/${article.id}`}>編輯</Link>
                   </Button>
                   <Button onClick={() => deleteArticle(index)}>刪除</Button>
                 </RowContainer>

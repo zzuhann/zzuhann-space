@@ -1,18 +1,21 @@
 import styled from "styled-components";
 import { ColumnContainer } from "../Container";
+import { Category } from "./Category";
+import { Latest } from "./Latest";
+import { Profile } from "./Profile";
 
 const Box = styled.div`
   border: 1px solid black;
   height: 150px;
-  width: 100px;
+  width: 200px;
 `;
 
 export const Sidebar = () => {
   return (
     <ColumnContainer>
-      <Box />
-      <Box />
-      <Box />
+      <Profile />
+      <Latest />
+      <Category />
     </ColumnContainer>
   );
 };
