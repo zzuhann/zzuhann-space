@@ -16,7 +16,7 @@ const Articles = () => {
   if (!articles) return null;
   return (
     <>
-      <Block articles={articles} />
+      <Block articles={articles} isCategory={false} />
     </>
   );
 };

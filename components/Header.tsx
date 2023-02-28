@@ -84,6 +84,9 @@ export const Header = () => {
         <NavLink href={`/${HEADER_NAV.ARTICLE}`}>
           {t(`HEADER.${HEADER_NAV["ARTICLE"]}`)}
         </NavLink>
+        <NavLink href={`/${HEADER_NAV.CATEGORY}`}>
+          {t(`HEADER.${HEADER_NAV["CATEGORY"]}`)}
+        </NavLink>
         <NavLink href={`/${HEADER_NAV.ABOUT_ME}`}>
           {t(`HEADER.${HEADER_NAV["ABOUT_ME"]}`)}
         </NavLink>
@@ -98,14 +101,14 @@ export const Header = () => {
           </>
         )}
       </FlexContainer>
-      <FlexContainer className="right-side">
+      {/* <FlexContainer className="right-side">
         <button onClick={() => i18n.changeLanguage("en")} type="button">
           英文
         </button>
         <button onClick={() => i18n.changeLanguage("zh")} type="button">
           中文
         </button>
-      </FlexContainer>
+      </FlexContainer> */}
     </FlexContainer>
   );
 };

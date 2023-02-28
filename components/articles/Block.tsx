@@ -26,9 +26,10 @@ const TAG = styled.div`
 
 type Props = {
   articles: IArticleFirestore[];
+  isCategory: boolean;
 };
 
-const Block = ({ articles }: Props) => {
+const Block = ({ articles, isCategory }: Props) => {
   return (
     <ColumnContainer>
       {articles.map((item) => (
@@ -36,9 +37,12 @@ const Block = ({ articles }: Props) => {
           <Text>
             {newDateToFormatString(new Date(item.createTime.seconds * 1000))}
           </Text>
-          <Link href={`/articles/tags/${item.tag}`}>
-            <TAG>{item.tag}</TAG>
-          </Link>
+          {!isCategory && (
+            <Link href={`/articles/tags/${item.tag}`}>
+              <TAG>{item.tag}</TAG>
+            </Link>
+          )}
+
           <Link href={`/articles/${item.id}`}>
             <H1>{item.title}</H1>
           </Link>

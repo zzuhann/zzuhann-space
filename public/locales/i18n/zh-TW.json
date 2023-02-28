@@ -1,6 +1,7 @@
 {
   "HEADER": {
     "articles": "所有文章",
+    "category": "分類",
     "about_me": "關於我",
     "add_post": "新增文章",
     "logged_out": "登出"

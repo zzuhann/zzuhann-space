@@ -34,8 +34,6 @@ export const Tags = ({
     setNewOption(newValue);
   };
 
-  console.log(newOption);
-
   return (
     <Autocomplete
       freeSolo

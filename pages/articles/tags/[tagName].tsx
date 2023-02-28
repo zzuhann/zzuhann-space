@@ -21,7 +21,7 @@ const TagArticlesList = () => {
   return (
     <>
       <h1>{tagName}</h1>
-      <Block articles={articles} />
+      <Block articles={articles} isCategory={false} />
     </>
   );
 };

@@ -26,13 +26,13 @@ const SingleArticle = () => {
   return (
     <>
       <h1>{article.title}</h1>
-      <p>
+      <div>
         {newDateToFormatString(new Date(article.createTime.seconds * 1000))}
-      </p>
-      <Link href={`/tags/${article.tag[0]}`}>
-        <p>{article.tag[0]}</p>
+      </div>
+      <Link href={`/articles/tags/${article.tag}`}>
+        <div>{article.tag}</div>
       </Link>
-      <p>{parse(article.content)}</p>
+      <div>{parse(article.content)}</div>
     </>
   );
 };
