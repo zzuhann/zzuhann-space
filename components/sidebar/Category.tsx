@@ -2,10 +2,7 @@ import { useEffect, useState } from "react";
 import { RowContainer } from "../Container";
 import { getDataById } from "../../common/firebaseFun";
 import Link from "next/link";
-
-type Count = {
-  [key: string]: number;
-};
+import { Count } from "../../common/articleType";
 
 export const Category = () => {
   const [tagsCount, setTagsCount] = useState<Count>();

@@ -9,7 +9,7 @@ export interface IArticle {
   url?: string;
 }
 
-interface ITimeFirestore {
+export interface ITimeFirestore {
   seconds: number;
   nanoseconds: number;
 }
@@ -28,3 +28,7 @@ export interface IAddFireStore {
   target: string;
   data: IArticle;
 }
+
+export type Count = {
+  [key: string]: number;
+};
