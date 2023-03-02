@@ -17,7 +17,7 @@ export const Latest = () => {
   return (
     <>
       <h2>最新文章</h2>
-      {articles?.slice(0.5).map((article) => (
+      {articles?.slice(0, 5).map((article) => (
         <Link key={article.id} href={`/articles/${article.id}`}>
           <div>{article.title}</div>
         </Link>

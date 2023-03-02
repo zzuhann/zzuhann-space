@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
-import { IArticle } from "../../../../common/articleType";
+import { Count, IArticle } from "../../../../common/articleType";
 import {
   getDataById,
   getFirestoreDataById,
@@ -19,6 +19,32 @@ const EditArticle = () => {
   // const [allOptions, setAllOptions] = useState<string[]>(tags);
   const [context, setContext] = useState<string>("");
   const titleRef = useRef<HTMLInputElement>(null);
+  const [tagArticlesCount, setTagArticlesCount] = useState<Count>();
+
+  const updateTagCount = (tag: string) => {
+    if (!tagArticlesCount) return;
+    if (!articleDetail) return;
+
+    if (articleDetail.tag === tag) return;
+
+    const newCount = { ...tagArticlesCount };
+
+    if (tagArticlesCount[tag] === undefined) {
+      newCount[tag] = 1;
+    } else {
+      newCount[tag] += 1;
+    }
+    newCount[articleDetail.tag] -= 1;
+    if (newCount[articleDetail.tag] === 0) {
+      delete newCount[articleDetail.tag];
+    }
+
+    updateFirestoreById({
+      target: "allTags",
+      id: "tagArticlesCount",
+      data: { count: newCount },
+    });
+  };
 
   const onSubmit = () => {
     const newTitle = titleRef.current?.value;
@@ -33,11 +59,12 @@ const EditArticle = () => {
       updateTime: new Date(),
       tag: newOption,
     };
+    updateTagCount(newOption);
     updateFirestoreById({ target, id: id as string, data: newArticle });
     updateFirestoreById({
       target: "allTags",
       id: "tags",
-      data: { tags: newOption },
+      data: { tags: tags },
     });
     clear();
   };
@@ -73,6 +100,11 @@ const EditArticle = () => {
   }, [articleDetail]);
 
   useEffect(() => {
+    const getTagArticlesCount = async () => {
+      const response = await getDataById("allTags", "tagArticlesCount");
+      setTagArticlesCount(response?.count);
+    };
+    getTagArticlesCount();
     getFirestoreDataById("allTags", "tags", undefined, setTags);
   }, []);
 
