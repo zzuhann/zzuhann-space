@@ -34,6 +34,11 @@
 } /*# sourceMappingURL=TipTapEditor.style.css.map */
 
 .ProseMirror {
+  a {
+    color: #4fa2c5;
+    text-decoration: underline;
+  }
+
   pre {
     background: #0d0d0d;
     color: #fff;
