@@ -46,6 +46,7 @@ const CategoryArticles = () => {
             author: cur.author,
             tag: cur.tag,
             content: cur.content,
+            description: cur.description,
           });
           return acc;
         },

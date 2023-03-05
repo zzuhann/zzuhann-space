@@ -23,6 +23,7 @@ export interface IArticleFirestore {
   author: string;
   tag: string;
   id?: string;
+  description: string;
 }
 
 export interface IAddFireStore {
