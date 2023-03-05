@@ -14,7 +14,7 @@ const Container = styled(RowContainer)`
 export const Layout: React.FC<Props> = ({ children }) => {
   return (
     <Container>
-      <div>{children}</div>
+      <div style={{ flex: 1 }}>{children}</div>
       <Sidebar />
     </Container>
   );

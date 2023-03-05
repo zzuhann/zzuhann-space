@@ -17,8 +17,10 @@ export const Latest = () => {
   return (
     <>
       <h2>最新文章</h2>
-      {articles?.slice(0.5).map((article) => (
-        <div key={article.id}>{article.title}</div>
+      {articles?.slice(0, 5).map((article) => (
+        <Link key={article.id} href={`/articles/${article.id}`}>
+          <div>{article.title}</div>
+        </Link>
       ))}
       <Link href={"/articles"}>
         <div> {">>"} 查看所有文章</div>

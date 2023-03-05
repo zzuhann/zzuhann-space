@@ -22,7 +22,6 @@ export const Tags = ({
   setTags,
   newOption,
   setNewOption,
-  defaultTag,
 }: {
   tags: string[];
   setTags: Dispatch<SetStateAction<string[]>>;
@@ -33,8 +32,6 @@ export const Tags = ({
   const handleInputChange = (event: any, newValue: string) => {
     setNewOption(newValue);
   };
-
-  console.log(newOption);
 
   return (
     <Autocomplete
@@ -54,7 +51,13 @@ export const Tags = ({
           label="Options"
           onBlur={() => {
             if (newOption.length === 0) return;
-            setTags([...tags, newOption]);
+            setTags(() => {
+              if (tags.includes(newOption)) {
+                return [...tags];
+              } else {
+                return [...tags, newOption];
+              }
+            });
           }}
         />
       )}

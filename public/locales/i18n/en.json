@@ -1,6 +1,7 @@
 {
   "HEADER": {
     "articles": "Articles",
+    "category": "category",
     "about_me": "About Me",
     "add_post": "Add Post",
     "logged_out": "Log Out"
