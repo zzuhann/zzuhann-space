@@ -16,8 +16,8 @@ const EditArticle = () => {
   const [articleDetail, setArticleDetail] = useState<IArticle>();
   const [tags, setTags] = useState<string[]>([]);
   const [newOption, setNewOption] = useState<string>("");
-  // const [allOptions, setAllOptions] = useState<string[]>(tags);
   const [context, setContext] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
   const titleRef = useRef<HTMLInputElement>(null);
   const [tagArticlesCount, setTagArticlesCount] = useState<Count>();
 
@@ -86,6 +86,7 @@ const EditArticle = () => {
         setArticleDetail(articleInfo);
         setNewOption(articleInfo.tag);
         setContext(articleInfo.content);
+        setDescription(articleInfo.description);
       });
     };
     if (postId) {
@@ -118,7 +119,16 @@ const EditArticle = () => {
         setNewOption={setNewOption}
         defaultTag={articleDetail?.tag}
       />
-      {context && <Tiptap context={context} setContext={setContext} />}
+      {description && (
+        <Tiptap
+          context={context}
+          setContext={setContext}
+          type={"description"}
+        />
+      )}
+      {context && (
+        <Tiptap context={context} setContext={setContext} type={"context"} />
+      )}
       <Button onClick={onSubmit}>送出</Button>
     </ColumnContainer>
   );

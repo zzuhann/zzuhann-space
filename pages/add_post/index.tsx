@@ -12,6 +12,7 @@ import { Count } from "../../common/articleType";
 
 const AddPost = () => {
   const titleRef = useRef<HTMLInputElement>(null);
+  const [description, setDescription] = useState<string>("");
   const [context, setContext] = useState<string>("");
   const [tags, setTags] = useState<string[]>([]);
   const [newOption, setNewOption] = useState<string>("");
@@ -38,7 +39,7 @@ const AddPost = () => {
 
     const title = titleRef.current.value;
 
-    if (!title || !context) return;
+    if (!title || !context || !description) return;
     const articleInfo = {
       target: "articles",
       data: {
@@ -48,6 +49,7 @@ const AddPost = () => {
         updateTime: new Date(),
         author: "zzuhann",
         tag: newOption,
+        description: description,
       },
     };
     updateTagCount(newOption);
@@ -64,6 +66,7 @@ const AddPost = () => {
     if (titleRef.current) {
       titleRef.current.value = "";
     }
+    setDescription("");
     setNewOption("");
     setContext("");
   };
@@ -86,7 +89,13 @@ const AddPost = () => {
         newOption={newOption}
         setNewOption={setNewOption}
       />
-      <Tiptap context={context} setContext={setContext} />
+      <div>前言（預覽用）</div>
+      <Tiptap
+        context={description}
+        setContext={setDescription}
+        type={"description"}
+      />
+      <Tiptap context={context} setContext={setContext} type={"context"} />
       <Button onClick={onSubmit}>送出</Button>
     </ColumnContainer>
   );

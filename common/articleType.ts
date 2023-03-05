@@ -7,6 +7,7 @@ export interface IArticle {
   tag: string;
   cover?: string;
   url?: string;
+  description: string;
 }
 
 export interface ITimeFirestore {

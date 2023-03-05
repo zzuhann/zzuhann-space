@@ -83,9 +83,11 @@ const ImageLabel = ({
 const Tiptap = ({
   context,
   setContext,
+  type,
 }: {
   context: string;
   setContext: Dispatch<SetStateAction<string>>;
+  type: string;
 }) => {
   const editor = useEditor({
     extensions: [
