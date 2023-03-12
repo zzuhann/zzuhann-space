@@ -35,7 +35,13 @@ const Context = styled.div`
   margin-bottom: 30px;
 `;
 
-export const ArticlePreview = ({ article }: { article: IArticleFirestore }) => {
+export const ArticleRead = ({
+  article,
+  isPreview,
+}: {
+  article: IArticleFirestore;
+  isPreview: boolean;
+}) => {
   return (
     <ArticlePreviewContainer>
       <ArticleTitle>{article.title}</ArticleTitle>
@@ -44,19 +50,26 @@ export const ArticlePreview = ({ article }: { article: IArticleFirestore }) => {
           發佈於{" "}
           {newDateToFormatString(new Date(article.createTime.seconds * 1000))}
         </SubDescription>
-        <SubDescription>
-          <LocalOfferOutlinedIcon
-            fontSize="medium"
-            sx={{ marginRight: "5px" }}
-          />{" "}
-          {article.tag}
-        </SubDescription>
+        <Link href={`/articles/tags/${article.tag}`}>
+          <SubDescription>
+            <LocalOfferOutlinedIcon
+              fontSize="medium"
+              sx={{ marginRight: "5px" }}
+            />{" "}
+            {article.tag}
+          </SubDescription>
+        </Link>
       </RowCenterContainer>
 
       <Context>{parse(article.description)}</Context>
-      <Link href={`/articles/${article.id}`} style={{ alignSelf: "flex-end" }}>
-        <Button>繼續閱讀</Button>
-      </Link>
+      {isPreview && (
+        <Link
+          href={`/articles/${article.id}`}
+          style={{ alignSelf: "flex-end" }}
+        >
+          <Button>繼續閱讀</Button>
+        </Link>
+      )}
     </ArticlePreviewContainer>
   );
 };

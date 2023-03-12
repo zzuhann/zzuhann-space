@@ -7,3 +7,8 @@ export const Button = styled.div`
   padding: 5px 20px;
   font-size: 15px;
 `;
+
+export const Text = styled.div`
+  font-size: 16px;
+  letter-spacing: 0.5px;
+`;
