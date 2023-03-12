@@ -21,6 +21,7 @@ const FlexContainer = styled.div`
   letter-spacing: 1px;
   position: fixed;
   top: 0;
+  width: 100%;
 `;
 
 const NavLink = styled(Link)`

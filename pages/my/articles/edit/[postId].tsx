@@ -6,7 +6,8 @@ import {
   getFirestoreDataById,
   updateFirestoreById,
 } from "../../../../common/firebaseFun";
-import { Button, Tags, Title } from "../../../../components/addPosts/AddPosts";
+import { Tags, Title } from "../../../../components/addPosts/AddPosts";
+import { Button } from "../../../../components/common/Common";
 import { ColumnContainer } from "../../../../components/Container";
 import Tiptap from "../../../../components/TipTapEditor";
 
