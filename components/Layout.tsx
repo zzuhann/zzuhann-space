@@ -10,8 +10,9 @@ type Props = {
 const Container = styled(RowContainer)`
   justify-content: space-between;
   margin: 0 auto;
-  margin-top: 60px;
+  margin-top: 120px;
   max-width: 1000px;
+  margin-bottom: 60px;
   * {
     /* outline: 1px solid black; */
   }

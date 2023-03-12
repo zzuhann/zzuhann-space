@@ -19,6 +19,8 @@ const FlexContainer = styled.div`
   background-color: #f8f9ff;
   padding: 0 15px;
   letter-spacing: 1px;
+  position: fixed;
+  top: 0;
 `;
 
 const NavLink = styled(Link)`
