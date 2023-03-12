@@ -33,6 +33,7 @@
     "InsertLink": "link:@mui/icons-material/InsertLink",
     "LinkOff": "link:@mui/icons-material/LinkOff",
     "LinkedIn": "link:@mui/icons-material/LinkedIn",
+    "LocalOfferOutlined": "link:@mui/icons-material/LocalOfferOutlined",
     "eslint": "8.31.0",
     "eslint-config-next": "13.1.1",
     "firebase": "^9.15.0",
