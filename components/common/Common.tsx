@@ -6,6 +6,11 @@ export const Button = styled.div`
   border-radius: 5px;
   padding: 5px 20px;
   font-size: 15px;
+  cursor: pointer;
+  transition: 0.5s;
+  &:hover {
+    filter: brightness(85%);
+  }
 `;
 
 export const Text = styled.div`

@@ -22,6 +22,7 @@ const FlexContainer = styled.div`
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 100;
 `;
 
 const NavLink = styled(Link)`
