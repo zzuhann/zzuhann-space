@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { IArticleFirestore } from "../common/articleType";
 import { getCollection } from "../common/firebaseFun";
-import { ArticlePreview } from "../components/articles/ArticlePreview";
+import { ArticleRead } from "../components/articles/ArticleRead";
 
 export default function Home() {
   const [allArticles, setAllArticles] = useState<IArticleFirestore[]>();
@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <>
       {allArticles?.map((article) => (
-        <ArticlePreview key={article.id} article={article} />
+        <ArticleRead key={article.id} article={article} isPreview={true} />
       ))}
     </>
   );

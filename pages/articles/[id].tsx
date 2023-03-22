@@ -1,10 +1,9 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import parse from "html-react-parser";
 import { IArticleFirestore } from "../../common/articleType";
-import { newDateToFormatString } from "../../common/commonFun";
 import { getDataById } from "../../common/firebaseFun";
-import Link from "next/link";
+import { ArticleRead } from "../../components/articles/ArticleRead";
+import NextArticle from "../../components/articles/NextArticle";
 
 const SingleArticle = () => {
   const router = useRouter();
@@ -25,14 +24,8 @@ const SingleArticle = () => {
   if (!article) return;
   return (
     <>
-      <h1>{article.title}</h1>
-      <div>
-        {newDateToFormatString(new Date(article.createTime.seconds * 1000))}
-      </div>
-      <Link href={`/articles/tags/${article.tag}`}>
-        <div>{article.tag}</div>
-      </Link>
-      <div>{parse(article.content)}</div>
+      <ArticleRead article={article} isPreview={false} />
+      <NextArticle />
     </>
   );
 };

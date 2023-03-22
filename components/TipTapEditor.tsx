@@ -24,11 +24,26 @@ import { lowlight } from "lowlight";
 import CodeBlock from "./CodeBlock";
 import { ChangeEvent, Dispatch, SetStateAction, useCallback } from "react";
 import { uploadStorageImage } from "../common/firebaseFun";
+import { InputTitle } from "./addPosts/AddPosts.style";
+import styled from "styled-components";
+import { RowContainer } from "./Container";
 
 lowlight.registerLanguage("html", html);
 lowlight.registerLanguage("css", css);
 lowlight.registerLanguage("js", js);
 lowlight.registerLanguage("ts", ts);
+
+const IconConainer = styled(RowContainer)`
+  gap: 6px;
+  align-items: center;
+  > * {
+    cursor: pointer;
+  }
+`;
+
+const TipTapContainer = styled.div`
+  margin-bottom: 24px;
+`;
 
 const Menubar = ({
   addImage,
@@ -44,7 +59,7 @@ const Menubar = ({
   editor: Editor | null;
 }) => {
   return (
-    <div>
+    <IconConainer>
       <ImageLabel addImage={addImage} />
       <CodeIcon onClick={addCodeStyle} />
       <InsertLinkIcon
@@ -54,7 +69,7 @@ const Menubar = ({
       <button onClick={unsetLink} disabled={!editor?.isActive("link")}>
         <LinkOffIcon />
       </button>
-    </div>
+    </IconConainer>
   );
 };
 
@@ -162,7 +177,12 @@ const Tiptap = ({
   };
 
   return (
-    <>
+    <TipTapContainer>
+      {type === "description" ? (
+        <InputTitle>前言敘述</InputTitle>
+      ) : (
+        <InputTitle>文章內容</InputTitle>
+      )}
       <Menubar
         addImage={addImage}
         addCodeStyle={addCodeStyle}
@@ -171,7 +191,7 @@ const Tiptap = ({
         unsetLink={unsetLink}
       />
       <EditorContent editor={editor} />
-    </>
+    </TipTapContainer>
   );
 };
 
