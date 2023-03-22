@@ -7,8 +7,9 @@ import {
   updateFirestoreById,
   uploadFirestore,
 } from "../../common/firebaseFun";
-import { Button, Tags, Title } from "../../components/addPosts/AddPosts";
+import { Tags, Title } from "../../components/addPosts/AddPosts";
 import { Count } from "../../common/articleType";
+import { Button, Title32px } from "../../components/common/Common";
 
 const AddPost = () => {
   const titleRef = useRef<HTMLInputElement>(null);
@@ -82,6 +83,7 @@ const AddPost = () => {
 
   return (
     <ColumnContainer>
+      <Title32px>新增文章</Title32px>
       <Title titleRef={titleRef} />
       <Tags
         tags={tags}
@@ -89,14 +91,15 @@ const AddPost = () => {
         newOption={newOption}
         setNewOption={setNewOption}
       />
-      <div>前言（預覽用）</div>
       <Tiptap
         context={description}
         setContext={setDescription}
         type={"description"}
       />
       <Tiptap context={context} setContext={setContext} type={"context"} />
-      <Button onClick={onSubmit}>送出</Button>
+      <Button onClick={onSubmit} style={{ alignSelf: "flex-start" }}>
+        送出
+      </Button>
     </ColumnContainer>
   );
 };

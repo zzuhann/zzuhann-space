@@ -10,16 +10,20 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { IArticleFirestore } from "../../common/articleType";
 import { RowContainer } from "../Container";
-import { Button } from "./MyArticle.style";
 import { Dispatch, SetStateAction } from "react";
 import { delFireStoreDataById } from "../../common/firebaseFun";
 import { newDateToFormatString } from "../../common/commonFun";
+import { Button } from "../common/Common";
 // import { useLoadingService } from "../../store/loading-context";
+
+const ButtonContainer = styled(RowContainer)`
+  gap: 13px;
+`;
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
+    backgroundColor: "#F8F9FF",
+    color: "#3c3c3c",
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
@@ -30,7 +34,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.action.hover,
   },
-  // hide last border
   "&:last-child td, &:last-child th": {
     border: 0,
   },
@@ -79,13 +82,15 @@ export default function MyArticle({ articles, setArticles }: Props) {
               </StyledTableCell>
               <StyledTableCell>{article.title}</StyledTableCell>
               <StyledTableCell>
-                <RowContainer>
-                  <Button>預覽</Button>
+                <ButtonContainer>
+                  <Button>
+                    <Link href={`/articles/${article.id}`}>預覽</Link>
+                  </Button>
                   <Button>
                     <Link href={`/my/articles/edit/${article.id}`}>編輯</Link>
                   </Button>
                   <Button onClick={() => deleteArticle(index)}>刪除</Button>
-                </RowContainer>
+                </ButtonContainer>
               </StyledTableCell>
             </StyledTableRow>
           ))}

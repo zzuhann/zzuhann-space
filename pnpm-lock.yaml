@@ -26,6 +26,7 @@ specifiers:
   InsertLink: link:@mui/icons-material/InsertLink
   LinkOff: link:@mui/icons-material/LinkOff
   LinkedIn: link:@mui/icons-material/LinkedIn
+  LocalOfferOutlined: link:@mui/icons-material/LocalOfferOutlined
   babel-plugin-styled-components: ^2.0.7
   eslint: 8.31.0
   eslint-config-next: 13.1.1
@@ -81,6 +82,7 @@ dependencies:
   InsertLink: link:@mui/icons-material/InsertLink
   LinkOff: link:@mui/icons-material/LinkOff
   LinkedIn: link:@mui/icons-material/LinkedIn
+  LocalOfferOutlined: link:@mui/icons-material/LocalOfferOutlined
   eslint: 8.31.0
   eslint-config-next: 13.1.1_iukboom6ndih5an6iafl45j2fe
   firebase: 9.15.0

@@ -6,6 +6,39 @@ import { AuthActionKind } from "../store/auth-reducer";
 import { AuthContext } from "../store/auth-context";
 import { getFirestoreDataById } from "../common/firebaseFun";
 import { useLoadingService } from "../store/loading-context";
+import styled from "styled-components";
+import { Button } from "./common/Common";
+
+const Container = styled.div`
+  border: solid 3px #20538f;
+  border-radius: 20px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  gap: 20px;
+`;
+
+const Title = styled.h1`
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+`;
+
+const InputContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 15px;
+`;
+
+const InputStyle = styled.input`
+  border: 1px #8c8c8c solid;
+  border-radius: 5px;
+  padding: 5px;
+`;
 
 const LoggedIn = () => {
   const { showLoading, hideLoading } = useLoadingService();
@@ -47,14 +80,20 @@ const LoggedIn = () => {
     }
   }
   return (
-    <>
-      <h1>登入</h1>
-      <label htmlFor="email">信箱</label>
-      <input type="text" id="email" ref={emailRef} />
-      <label htmlFor="password">密碼</label>
-      <input type="password" id="password" ref={passwordRef} />
-      <div onClick={signIn}>送出</div>
-    </>
+    <Container>
+      <Title>登入</Title>
+      <InputContainer>
+        <label htmlFor="email">信箱</label>
+        <InputStyle type="text" id="email" ref={emailRef} />
+      </InputContainer>
+      <InputContainer>
+        <label htmlFor="password">密碼</label>
+        <InputStyle type="password" id="password" ref={passwordRef} />
+      </InputContainer>
+      <Button onClick={signIn} style={{ alignSelf: "center" }}>
+        送出
+      </Button>
+    </Container>
   );
 };
 

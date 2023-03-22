@@ -1,3 +1,8 @@
+code {
+  font-family: MyFancyCustomFont, monospace;
+  font-size: inherit;
+}
+
 .ProseMirror > * + * {
   margin-top: 0.75em;
 }
@@ -14,8 +19,11 @@
   line-height: 1.1;
 }
 .ProseMirror code {
-  background-color: rgba(97, 97, 97, 0.1);
-  color: #616161;
+  background: #ffeff0;
+  word-wrap: break-word;
+  box-decoration-break: clone;
+  padding: 0.1rem 0.3rem 0.2rem;
+  border-radius: 0.2rem;
 }
 .ProseMirror img {
   width: 600px;
@@ -34,6 +42,13 @@
 } /*# sourceMappingURL=TipTapEditor.style.css.map */
 
 .ProseMirror {
+  border-radius: 3px;
+  border: 1px solid #b3b3b3;
+  height: 300px;
+  width: 100%;
+  overflow-y: scroll;
+  padding: 20px;
+  line-height: 1;
   a {
     color: #4fa2c5;
     text-decoration: underline;
@@ -51,6 +66,10 @@
       padding: 0;
       background: none;
       font-size: 0.8rem;
+      line-height: 1.2;
+      > * {
+        color: #fff;
+      }
     }
 
     .hljs-comment,

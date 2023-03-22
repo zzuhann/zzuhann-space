@@ -3,6 +3,7 @@ import { AuthType } from "../common/authType";
 export enum AuthActionKind {
   LOGGEDIN = "LOGGEDIN",
   LOGGEDOUT = "LOGGEDOUT",
+  UPDATEPROFILE = "UPDATEPROFILE",
 }
 
 export interface AuthActionType {
@@ -31,6 +32,15 @@ const authReducer = (state = authState, action: AuthActionType) => {
           email: action.payload.userInfo.email,
           userImg: action.payload.userInfo.userImg,
           userIntro: action.payload.userInfo.userIntro,
+        },
+      };
+    case AuthActionKind.UPDATEPROFILE:
+      return {
+        ...state,
+        isLoggedIn: true,
+        userInfo: {
+          ...state.userInfo,
+          userImg: action.payload.userInfo.userImg,
         },
       };
     case AuthActionKind.LOGGEDOUT:

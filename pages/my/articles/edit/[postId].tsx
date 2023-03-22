@@ -6,7 +6,8 @@ import {
   getFirestoreDataById,
   updateFirestoreById,
 } from "../../../../common/firebaseFun";
-import { Button, Tags, Title } from "../../../../components/addPosts/AddPosts";
+import { Tags, Title } from "../../../../components/addPosts/AddPosts";
+import { Button, Title32px } from "../../../../components/common/Common";
 import { ColumnContainer } from "../../../../components/Container";
 import Tiptap from "../../../../components/TipTapEditor";
 
@@ -111,6 +112,7 @@ const EditArticle = () => {
 
   return (
     <ColumnContainer>
+      <Title32px>編輯文章</Title32px>
       <Title titleRef={titleRef} />
       <Tags
         tags={tags}
@@ -129,7 +131,9 @@ const EditArticle = () => {
       {context && (
         <Tiptap context={context} setContext={setContext} type={"context"} />
       )}
-      <Button onClick={onSubmit}>送出</Button>
+      <Button onClick={onSubmit} style={{ alignSelf: "flex-start" }}>
+        送出
+      </Button>
     </ColumnContainer>
   );
 };
