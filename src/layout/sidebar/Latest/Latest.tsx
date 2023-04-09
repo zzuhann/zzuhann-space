@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { IArticleFirestore } from "../../../common/articleType";
 import { getCollection } from "../../../common/firebaseFun";
-import { Button } from "../../common/Common";
+import { Button } from "../../../components/common/Common";
 import {
   SidebarSingleContainer,
   SidebarText,

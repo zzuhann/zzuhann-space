@@ -3,6 +3,7 @@ import { db } from "../../../../firebase-config";
 import { useEffect, useState } from "react";
 import { MyArticle } from "../../../components/myArticles";
 import { IArticleFirestore } from "../../../common/articleType";
+import { getLayout } from "../../../layout";
 
 const AllMyArticles = () => {
   const [articles, setArticles] = useState<IArticleFirestore[]>([]);
@@ -25,5 +26,7 @@ const AllMyArticles = () => {
   }, []);
   return <MyArticle articles={articles} setArticles={setArticles} />;
 };
+
+AllMyArticles.getLayout = getLayout;
 
 export default AllMyArticles;

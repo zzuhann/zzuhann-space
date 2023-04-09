@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { IArticleFirestore } from "../../../common/articleType";
 import { getDataByWhere } from "../../../common/firebaseFun";
 import { SortArticleBlock } from "../../../components/SortArticleBlock";
+import { getLayout } from "../../../layout";
+import { Typography } from "@mui/material";
 
 const TagArticlesList = () => {
   const router = useRouter();
@@ -20,10 +22,15 @@ const TagArticlesList = () => {
   if (!articles) return;
   return (
     <>
-      <h1>{tagName}</h1>
+      <Typography
+        sx={{ fontSize: "32px", fontWeight: "bold", marginBottom: "5px" }}
+      >
+        {tagName}
+      </Typography>
       <SortArticleBlock articles={articles} isCategory={false} />
     </>
   );
 };
+TagArticlesList.getLayout = getLayout;
 
 export default TagArticlesList;

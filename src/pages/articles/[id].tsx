@@ -4,6 +4,7 @@ import { IArticleFirestore } from "../../common/articleType";
 import { getDataById } from "../../common/firebaseFun";
 import { ArticleRead } from "../../components/ArticleRead";
 import { NextArticle } from "../../components/articles/NextArticle";
+import { getLayout } from "../../layout";
 
 const SingleArticle = () => {
   const router = useRouter();
@@ -25,9 +26,11 @@ const SingleArticle = () => {
   return (
     <>
       <ArticleRead article={article} isPreview={false} isLast={false} />
-      <NextArticle />
+      {/* <NextArticle /> */}
     </>
   );
 };
+
+SingleArticle.getLayout = getLayout;
 
 export default SingleArticle;

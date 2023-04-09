@@ -1,5 +1,5 @@
-import React from "react";
-import { Sidebar } from "../components/sidebar/Sidebar";
+import React, { ReactElement } from "react";
+import { Sidebar } from "./sidebar";
 import { Header } from "./Header/Header";
 import { Container, LeftSideContainer } from "./Layout.style";
 
@@ -18,3 +18,5 @@ export const Layout: React.FC<Props> = ({ children }) => {
     </>
   );
 };
+
+export const getLayout = (page: ReactElement) => <Layout>{page}</Layout>;

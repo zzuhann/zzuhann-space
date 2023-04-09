@@ -10,6 +10,7 @@ import { Tags, Title } from "../../../../components/addPosts/AddPosts";
 import { Button, Title32px } from "../../../../components/common/Common";
 import { Tiptap } from "../../../../components/TipTapEditor";
 import { Stack } from "@mui/material";
+import { getLayout } from "../../../../layout";
 
 const EditArticle = () => {
   const router = useRouter();
@@ -137,5 +138,7 @@ const EditArticle = () => {
     </Stack>
   );
 };
+
+EditArticle.getLayout = getLayout;
 
 export default EditArticle;

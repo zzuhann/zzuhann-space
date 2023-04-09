@@ -7,9 +7,9 @@ import {
   SidebarText,
   SidebarTitle,
 } from "../Sidebar.style";
+import { Avatar, IconContainer } from "./Profile.style";
 import { useContext } from "react";
 import { AuthContext } from "../../../store/auth-context";
-import { Avatar, IconContainer } from "./Profile.style";
 
 export const Profile = () => {
   const { state } = useContext(AuthContext);

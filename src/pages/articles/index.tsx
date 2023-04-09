@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { IArticleFirestore } from "../../common/articleType";
 import { getCollection } from "../../common/firebaseFun";
 import { SortArticleBlock } from "../../components/SortArticleBlock";
+import { getLayout } from "../../layout";
 
 const Articles = () => {
   const [articles, setArticles] = useState<IArticleFirestore[]>();
@@ -20,5 +21,7 @@ const Articles = () => {
     </>
   );
 };
+
+Articles.getLayout = getLayout;
 
 export default Articles;

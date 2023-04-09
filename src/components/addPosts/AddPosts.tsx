@@ -15,7 +15,7 @@ import {
   updateFirestoreById,
   uploadFirestore,
 } from "../../common/firebaseFun";
-import Tiptap from "../TipTapEditor/TipTapEditor";
+import { Tiptap } from "../TipTapEditor/TipTapEditor";
 import { Button } from "../common/Common";
 
 export const Title = ({

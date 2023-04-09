@@ -9,7 +9,7 @@ import { auth } from "../../../firebase-config";
 import { AuthContext } from "../../store/auth-context";
 import { AuthActionKind } from "../../store/auth-reducer";
 import { useTranslation } from "react-i18next";
-import logo from "../public/blogLogo.png";
+import logo from "../../../public/blogLogo.png";
 import { FlexContainer, NavLink } from "./Header.style";
 
 export const Header = () => {

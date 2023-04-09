@@ -20,7 +20,7 @@ export const ButtonContainer = styled.div`
   gap: 13px;
 `;
 
-export const StyledTableCell = styled(TableCell)(({ theme }) => ({
+export const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: "#F8F9FF",
     color: "#3c3c3c",
@@ -30,10 +30,7 @@ export const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-export const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  "&:nth-of-type(odd)": {
-    backgroundColor: theme.palette.action.hover,
-  },
+export const StyledTableRow = styled(TableRow)(() => ({
   "&:last-child td, &:last-child th": {
     border: 0,
   },
