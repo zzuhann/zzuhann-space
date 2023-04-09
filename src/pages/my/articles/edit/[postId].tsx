@@ -8,7 +8,7 @@ import {
 } from "../../../../common/firebaseFun";
 import { Tags, Title } from "../../../../components/addPosts/AddPosts";
 import { Button, Title32px } from "../../../../components/common/Common";
-import Tiptap from "../../../../components/TipTapEditor/TipTapEditor";
+import { Tiptap } from "../../../../components/TipTapEditor";
 import { Stack } from "@mui/material";
 
 const EditArticle = () => {

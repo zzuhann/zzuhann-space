@@ -95,7 +95,7 @@ const ImageLabel = ({
   );
 };
 
-const Tiptap = ({
+export const Tiptap = ({
   context,
   setContext,
   type,
@@ -194,5 +194,3 @@ const Tiptap = ({
     </TipTapContainer>
   );
 };
-
-export default Tiptap;

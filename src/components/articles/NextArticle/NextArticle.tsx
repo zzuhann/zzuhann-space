@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Text } from "../../common/Common";
 import { NextContainer } from "./NextArticle.style";
 
-const NextArticle = () => {
+export const NextArticle = () => {
   return (
     <NextContainer>
       <Link href={"/"}>
@@ -14,5 +14,3 @@ const NextArticle = () => {
     </NextContainer>
   );
 };
-
-export default NextArticle;

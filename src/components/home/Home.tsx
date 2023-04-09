@@ -3,7 +3,7 @@ import { IArticleFirestore } from "../../common/articleType";
 import { getCollection } from "../../common/firebaseFun";
 import { ArticleRead } from "../ArticleRead";
 
-export default function Home() {
+export function Home() {
   const [allArticles, setAllArticles] = useState<IArticleFirestore[]>();
 
   useEffect(() => {

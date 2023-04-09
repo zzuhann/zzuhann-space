@@ -4,9 +4,8 @@ import { AuthContext } from "../store/auth-context";
 import { authReducer, authState } from "../store/auth-reducer";
 import { useReducer } from "react";
 import { LoadingProvider } from "../store/loading-context";
-import { Header } from "../layout/Header/Header";
 import "../../public/locales/i18n/i18n";
-import { Layout } from "../layout/Layout";
+import { Layout } from "../layout";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [state, dispatch] = useReducer(authReducer, authState);

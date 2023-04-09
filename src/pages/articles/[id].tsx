@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { IArticleFirestore } from "../../common/articleType";
 import { getDataById } from "../../common/firebaseFun";
 import { ArticleRead } from "../../components/ArticleRead";
-import NextArticle from "../../components/articles/NextArticle/NextArticle";
+import { NextArticle } from "../../components/articles/NextArticle";
 
 const SingleArticle = () => {
   const router = useRouter();
