@@ -24,7 +24,9 @@ export const ArticleRead = ({
 }) => {
   return (
     <ArticlePreviewContainer isLast={isLast}>
-      <Typography variant="h1">{article.title}</Typography>
+      <Typography sx={{ fontSize: "32px", fontWeight: "bold" }}>
+        {article.title}
+      </Typography>
       <RowCenterContainer>
         <SubDescription>
           發佈於{" "}
