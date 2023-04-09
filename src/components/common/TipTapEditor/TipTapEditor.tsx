@@ -21,10 +21,10 @@ import js from "highlight.js/lib/languages/javascript";
 import ts from "highlight.js/lib/languages/typescript";
 import html from "highlight.js/lib/languages/xml";
 import { lowlight } from "lowlight";
-import CodeBlock from "../CodeBlock";
+import CodeBlock from "@/components/CodeBlock";
 import { ChangeEvent, Dispatch, SetStateAction, useCallback } from "react";
-import { uploadStorageImage } from "../../common/firebaseFun";
-import { InputTitle } from "../addPosts/AddPosts.style";
+import { uploadStorageImage } from "@/common/firebaseFun";
+import { InputTitle } from "@/components/page/addPosts/AddPosts.style";
 import styled from "styled-components";
 
 lowlight.registerLanguage("html", html);

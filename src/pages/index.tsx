@@ -1,5 +1,5 @@
-import { Home } from "../components/home";
-import { getLayout } from "../layout";
+import { Home } from "@/components/page/home";
+import { getLayout } from "@/layout";
 import { NextPageWithLayout } from "./_app";
 
 const Page: NextPageWithLayout = () => {

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useMemo } from "react";
-import { IArticleFirestore } from "../../common/articleType";
-import { newDateToFormatString } from "../../common/commonFun";
+import { IArticleFirestore } from "@/common/articleType";
+import { newDateToFormatString } from "@/common/commonFun";
 import {
   AllArticleContainer,
   CategoryTitle,

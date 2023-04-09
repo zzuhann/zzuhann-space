@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { IArticleFirestore } from "../../common/articleType";
-import { getCollection } from "../../common/firebaseFun";
-import { ArticleRead } from "../ArticleRead";
+import { IArticleFirestore } from "@/common/articleType";
+import { getCollection } from "@/common/firebaseFun";
+import { ArticleRead } from "@/components/common/ArticleRead";
 
 export function Home() {
   const [allArticles, setAllArticles] = useState<IArticleFirestore[]>();

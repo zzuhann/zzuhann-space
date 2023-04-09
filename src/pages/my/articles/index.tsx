@@ -1,9 +1,9 @@
 import { collection, query, getDocs } from "firebase/firestore";
-import { db } from "../../../../firebase-config";
+import { db } from "@/firebase-config";
 import { useEffect, useState } from "react";
-import { MyArticle } from "../../../components/myArticles";
-import { IArticleFirestore } from "../../../common/articleType";
-import { getLayout } from "../../../layout";
+import { MyArticle } from "@/components/page/myArticles";
+import { IArticleFirestore } from "@/common/articleType";
+import { getLayout } from "@/layout";
 
 const AllMyArticles = () => {
   const [articles, setArticles] = useState<IArticleFirestore[]>([]);

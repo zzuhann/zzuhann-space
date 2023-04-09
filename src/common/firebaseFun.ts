@@ -9,7 +9,7 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { db, storage } from "../../firebase-config";
+import { db, storage } from "../firebase-config";
 import { userDocType } from "./authType";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { Dispatch, SetStateAction } from "react";

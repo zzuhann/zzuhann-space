@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
-import { Loading } from "../components/Loading/Loading";
+import { Loading } from "../components/common/Loading";
 
 interface LoadingType {
   showLoading: () => void;

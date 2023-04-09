@@ -1,12 +1,12 @@
 import { useContext, useRef } from "react";
-import { auth } from "../../../firebase-config";
+import { auth } from "@/firebase-config";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { userDocType, AuthType } from "../../common/authType";
-import { AuthActionKind } from "../../store/auth-reducer";
-import { AuthContext } from "../../store/auth-context";
-import { getFirestoreDataById } from "../../common/firebaseFun";
-import { useLoadingService } from "../../store/loading-context";
-import { Button } from "../common/Common";
+import { userDocType, AuthType } from "@/common/authType";
+import { AuthActionKind } from "@/store/auth-reducer";
+import { AuthContext } from "@/store/auth-context";
+import { getFirestoreDataById } from "@/common/firebaseFun";
+import { useLoadingService } from "@/store/loading-context";
+import { Button } from "@/components/common/Common";
 import { Container, InputContainer, InputStyle, Title } from "./LoggedIn.style";
 
 export const LoggedIn = () => {

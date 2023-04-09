@@ -1,12 +1,9 @@
 import { Stack } from "@mui/material";
 import Image from "next/image";
 import { useContext, useRef, useState } from "react";
-import {
-  updateFirestoreById,
-  uploadStorageImage,
-} from "../../common/firebaseFun";
-import { AuthContext } from "../../store/auth-context";
-import { Button } from "../common/Common";
+import { updateFirestoreById, uploadStorageImage } from "@/common/firebaseFun";
+import { AuthContext } from "@/store/auth-context";
+import { Button } from "@/components/common/Common";
 import {
   Container,
   ImageContainer,

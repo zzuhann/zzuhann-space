@@ -8,15 +8,15 @@ import {
 } from "react";
 import { Autocomplete, Box, Stack, TextField, Typography } from "@mui/material";
 import { InputContainer, Label, TextInput } from "./AddPosts.style";
-import { Count } from "../../common/articleType";
+import { Count } from "@/common/articleType";
 import {
   getDataById,
   getFirestoreDataById,
   updateFirestoreById,
   uploadFirestore,
-} from "../../common/firebaseFun";
-import { Tiptap } from "../TipTapEditor/TipTapEditor";
-import { Button } from "../common/Common";
+} from "@/common/firebaseFun";
+import { Tiptap } from "@/components/common/TipTapEditor/TipTapEditor";
+import { Button } from "@/components/common/Common";
 
 export const Title = ({
   titleRef,

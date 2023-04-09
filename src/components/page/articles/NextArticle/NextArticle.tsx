@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Text } from "../../common/Common";
+import { Text } from "@/components/common/Common";
 import { NextContainer } from "./NextArticle.style";
 
 export const NextArticle = () => {

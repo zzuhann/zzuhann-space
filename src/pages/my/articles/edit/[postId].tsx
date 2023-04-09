@@ -1,16 +1,16 @@
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
-import { Count, IArticle } from "../../../../common/articleType";
+import { Count, IArticle } from "@/common/articleType";
 import {
   getDataById,
   getFirestoreDataById,
   updateFirestoreById,
-} from "../../../../common/firebaseFun";
-import { Tags, Title } from "../../../../components/addPosts/AddPosts";
-import { Button, Title32px } from "../../../../components/common/Common";
-import { Tiptap } from "../../../../components/TipTapEditor";
+} from "@/common/firebaseFun";
+import { Tags, Title } from "@/components/page/addPosts/AddPosts";
+import { Button, Title32px } from "@/components/common/Common";
+import { Tiptap } from "@/components/common/TipTapEditor";
 import { Stack } from "@mui/material";
-import { getLayout } from "../../../../layout";
+import { getLayout } from "@/layout";
 
 const EditArticle = () => {
   const router = useRouter();

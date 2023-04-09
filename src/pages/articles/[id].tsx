@@ -1,10 +1,9 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { IArticleFirestore } from "../../common/articleType";
-import { getDataById } from "../../common/firebaseFun";
-import { ArticleRead } from "../../components/ArticleRead";
-import { NextArticle } from "../../components/articles/NextArticle";
-import { getLayout } from "../../layout";
+import { IArticleFirestore } from "@/common/articleType";
+import { getDataById } from "@/common/firebaseFun";
+import { ArticleRead } from "@/components/common/ArticleRead";
+import { getLayout } from "@/layout";
 
 const SingleArticle = () => {
   const router = useRouter();

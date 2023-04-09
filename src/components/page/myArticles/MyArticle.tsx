@@ -6,11 +6,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { IArticleFirestore } from "../../common/articleType";
+import { IArticleFirestore } from "@/common/articleType";
 import { Dispatch, SetStateAction } from "react";
-import { delFireStoreDataById } from "../../common/firebaseFun";
-import { newDateToFormatString } from "../../common/commonFun";
-import { Button } from "../common/Common";
+import { delFireStoreDataById } from "@/common/firebaseFun";
+import { newDateToFormatString } from "@/common/commonFun";
+import { Button } from "@/components/common/Common";
 import {
   ButtonContainer,
   StyledTableCell,

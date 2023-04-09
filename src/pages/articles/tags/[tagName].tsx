@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { IArticleFirestore } from "../../../common/articleType";
-import { getDataByWhere } from "../../../common/firebaseFun";
-import { SortArticleBlock } from "../../../components/SortArticleBlock";
-import { getLayout } from "../../../layout";
+import { IArticleFirestore } from "@/common/articleType";
+import { getDataByWhere } from "@/common/firebaseFun";
+import { SortArticleBlock } from "@/components/common/SortArticleBlock";
+import { getLayout } from "@/layout";
 import { Typography } from "@mui/material";
 
 const TagArticlesList = () => {

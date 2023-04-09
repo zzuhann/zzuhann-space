@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { Count, IArticleFirestore } from "../../common/articleType";
-import { getCollection, getDataById } from "../../common/firebaseFun";
-import { SortArticleBlock } from "../../components/SortArticleBlock";
-import { TagsCount } from "../../components/TagsCount";
-import { getLayout } from "../../layout";
+import { Count, IArticleFirestore } from "@/common/articleType";
+import { getCollection, getDataById } from "@/common/firebaseFun";
+import { SortArticleBlock } from "@/components/common/SortArticleBlock";
+import { TagsCount } from "@/components/common/TagsCount";
+import { getLayout } from "@/layout";
 
 const CategoryArticles = () => {
   const [articles, setArticles] = useState<IArticleFirestore[]>();

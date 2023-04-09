@@ -1,9 +1,9 @@
-import { IArticleFirestore } from "../../common/articleType";
-import { newDateToFormatString } from "../../common/commonFun";
+import { IArticleFirestore } from "@/common/articleType";
+import { newDateToFormatString } from "@/common/commonFun";
 import parse from "html-react-parser";
 import Link from "next/link";
 import LocalOfferOutlinedIcon from "@mui/icons-material/LocalOfferOutlined";
-import { Button } from "../common/Common";
+import { Button } from "../Common";
 import {
   ArticlePreviewContainer,
   ArticleTitle,
@@ -11,6 +11,7 @@ import {
   RowCenterContainer,
   SubDescription,
 } from "./ArticleRead.style";
+import { Typography } from "@mui/material";
 
 export const ArticleRead = ({
   article,
@@ -23,7 +24,7 @@ export const ArticleRead = ({
 }) => {
   return (
     <ArticlePreviewContainer isLast={isLast}>
-      <ArticleTitle>{article.title}</ArticleTitle>
+      <Typography variant="h1">{article.title}</Typography>
       <RowCenterContainer>
         <SubDescription>
           發佈於{" "}

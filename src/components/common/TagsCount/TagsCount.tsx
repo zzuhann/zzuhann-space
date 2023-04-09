@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Count } from "../../common/articleType";
+import { Count } from "@/common/articleType";
 import {
   AllCountContainer,
   CountContainer,
