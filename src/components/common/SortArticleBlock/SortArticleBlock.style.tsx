@@ -15,6 +15,17 @@ export const RowContainer = styled.div`
   align-items: center;
   gap: 16px;
   margin-bottom: 20px;
+  @media (max-width: 423px) {
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 8px;
+  }
+`;
+
+export const CategoryContainer = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 export const DateText = styled.div`
@@ -37,4 +48,8 @@ export const TAG = styled.div`
   font-size: 14px;
   width: 85px;
   text-align: center;
+  @media (max-width: 423px) {
+    width: auto;
+    padding: 10px;
+  }
 `;

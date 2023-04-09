@@ -23,7 +23,7 @@ const TagArticlesList = () => {
   return (
     <>
       <Typography
-        sx={{ fontSize: "32px", fontWeight: "bold", marginBottom: "5px" }}
+        sx={{ fontSize: "1.5rem", fontWeight: "bold", marginBottom: "5px" }}
       >
         {tagName}
       </Typography>

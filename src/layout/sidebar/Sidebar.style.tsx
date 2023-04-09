@@ -9,6 +9,10 @@ export const SidebarColumnContainer = styled.div`
   max-width: 230px;
   padding: 20px 25px;
   gap: 10px;
+  @media (max-width: 878px) {
+    max-width: 100%;
+    width: 100%;
+  }
 `;
 
 export const SidebarTitle = styled.div`
@@ -26,4 +30,8 @@ export const SidebarSingleContainer = styled.div`
 export const SidebarText = styled.div`
   font-size: 16px;
   letter-spacing: 0.5px;
+  @media (max-width: 878px) {
+    align-self: center;
+    text-align: center;
+  }
 `;

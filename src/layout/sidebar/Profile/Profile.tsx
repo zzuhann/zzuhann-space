@@ -1,7 +1,7 @@
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import EmailIcon from "@mui/icons-material/Email";
-import { PersonalLink, PERSONAL_LINK } from "../../../common/constant";
+import { PersonalLink, PERSONAL_LINK } from "@/common/constant";
 import {
   SidebarSingleContainer,
   SidebarText,
@@ -9,7 +9,7 @@ import {
 } from "../Sidebar.style";
 import { Avatar, IconContainer } from "./Profile.style";
 import { useContext } from "react";
-import { AuthContext } from "../../../store/auth-context";
+import { AuthContext } from "@/store/auth-context";
 
 export const Profile = () => {
   const { state } = useContext(AuthContext);

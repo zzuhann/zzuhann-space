@@ -4,6 +4,7 @@ import { IArticleFirestore } from "@/common/articleType";
 import { newDateToFormatString } from "@/common/commonFun";
 import {
   AllArticleContainer,
+  CategoryContainer,
   CategoryTitle,
   DateText,
   RowContainer,
@@ -53,16 +54,19 @@ export const SortArticleBlock = ({ articles, isCategory }: Props) => {
           <AllArticleContainer>
             {sortArticles[key].map((item) => (
               <RowContainer key={item.id}>
-                <DateText>
-                  {newDateToFormatString(
-                    new Date(item.createTime.seconds * 1000)
+                <CategoryContainer>
+                  <DateText>
+                    {newDateToFormatString(
+                      new Date(item.createTime.seconds * 1000)
+                    )}
+                  </DateText>
+
+                  {!isCategory && (
+                    <Link href={`/articles/tags/${item.tag}`}>
+                      <TAG>{item.tag}</TAG>
+                    </Link>
                   )}
-                </DateText>
-                {!isCategory && (
-                  <Link href={`/articles/tags/${item.tag}`}>
-                    <TAG>{item.tag}</TAG>
-                  </Link>
-                )}
+                </CategoryContainer>
 
                 <Link href={`/articles/${item.id}`}>
                   <Text>{item.title}</Text>

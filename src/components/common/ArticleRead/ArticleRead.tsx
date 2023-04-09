@@ -11,7 +11,6 @@ import {
   RowCenterContainer,
   SubDescription,
 } from "./ArticleRead.style";
-import { Typography } from "@mui/material";
 
 export const ArticleRead = ({
   article,
@@ -24,9 +23,7 @@ export const ArticleRead = ({
 }) => {
   return (
     <ArticlePreviewContainer isLast={isLast}>
-      <Typography sx={{ fontSize: "32px", fontWeight: "bold" }}>
-        {article.title}
-      </Typography>
+      <ArticleTitle>{article.title}</ArticleTitle>
       <RowCenterContainer>
         <SubDescription>
           發佈於{" "}

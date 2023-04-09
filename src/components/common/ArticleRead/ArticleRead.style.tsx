@@ -18,6 +18,9 @@ export const ArticleTitle = styled.h1`
   font-size: 32px;
   font-weight: bold;
   margin-bottom: 12px;
+  @media (max-width: 423px) {
+    font-size: 22px;
+  }
 `;
 export const SubDescription = styled.div`
   font-size: 14px;
