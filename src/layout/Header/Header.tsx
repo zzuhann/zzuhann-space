@@ -17,7 +17,6 @@ import {
   SideMenuContainer,
 } from "./Header.style";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Box } from "@mui/material";
 
 export const Header = () => {
   const { state, dispatch } = useContext(AuthContext);
@@ -104,9 +103,9 @@ export const Header = () => {
         <NavLink onClick={handleShowMenu} href={`/${HEADER_NAV.CATEGORY}`}>
           {t(`HEADER.${HEADER_NAV["CATEGORY"]}`)}
         </NavLink>
-        <NavLink onClick={handleShowMenu} href={`/${HEADER_NAV.ABOUT_ME}`}>
+        {/* <NavLink onClick={handleShowMenu} href={`/${HEADER_NAV.ABOUT_ME}`}>
           {t(`HEADER.${HEADER_NAV["ABOUT_ME"]}`)}
-        </NavLink>
+        </NavLink> */}
         {state.isLoggedIn && (
           <>
             <NavLink onClick={handleShowMenu} href={`/${HEADER_NAV.ADD_POST}`}>
@@ -132,9 +131,9 @@ export const Header = () => {
           <NavLink href={`/${HEADER_NAV.CATEGORY}`}>
             {t(`HEADER.${HEADER_NAV["CATEGORY"]}`)}
           </NavLink>
-          <NavLink href={`/${HEADER_NAV.ABOUT_ME}`}>
+          {/* <NavLink href={`/${HEADER_NAV.ABOUT_ME}`}>
             {t(`HEADER.${HEADER_NAV["ABOUT_ME"]}`)}
-          </NavLink>
+          </NavLink> */}
           {state.isLoggedIn && (
             <>
               <NavLink href={`/${HEADER_NAV.ADD_POST}`}>
