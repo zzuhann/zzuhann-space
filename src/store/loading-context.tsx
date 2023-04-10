@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useState } from "react";
-import { Loading } from "../components/common/Loading";
+/* eslint-disable @typescript-eslint/no-empty-function */
+import React, { createContext, useContext, useState } from 'react';
+import { LoadingScreen } from '../components/common/Loading';
 
 interface LoadingType {
   showLoading: () => void;
@@ -11,11 +12,7 @@ export const LoadingContext = createContext<LoadingType>({
   hideLoading: () => {},
 });
 
-export const LoadingProvider = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
+export const LoadingProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(false);
   const showLoading = () => setLoading(true);
   const hideLoading = () => setLoading(false);
@@ -23,7 +20,7 @@ export const LoadingProvider = ({
   return (
     <LoadingContext.Provider value={{ showLoading, hideLoading }}>
       {children}
-      {loading && <Loading />}
+      {loading && <LoadingScreen />}
     </LoadingContext.Provider>
   );
 };

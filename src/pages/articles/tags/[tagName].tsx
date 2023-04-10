@@ -1,10 +1,11 @@
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { IArticleFirestore } from "@/common/articleType";
-import { getDataByWhere } from "@/common/firebaseFun";
-import { SortArticleBlock } from "@/components/common/SortArticleBlock";
-import { getLayout } from "@/layout";
-import { Typography } from "@mui/material";
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { IArticleFirestore } from '@/common/articleType';
+import { getDataByWhere } from '@/common/firebaseFun';
+import { SortArticleBlock } from '@/components/common/SortArticleBlock';
+import { getLayout } from '@/layout';
+import { Typography } from '@mui/material';
+import { LoadingScreen } from '@/components/common/Loading';
 
 const TagArticlesList = () => {
   const router = useRouter();
@@ -13,20 +14,16 @@ const TagArticlesList = () => {
 
   useEffect(() => {
     if (!tagName) return;
-    const targetCollec = "articles";
-    const targetKey = "tag";
+    const targetCollec = 'articles';
+    const targetKey = 'tag';
     const targetValue = tagName as string;
     getDataByWhere(targetCollec, targetKey, targetValue, setArticles);
   }, [tagName]);
 
-  if (!articles) return;
+  if (!articles) return <LoadingScreen />;
   return (
     <>
-      <Typography
-        sx={{ fontSize: "1.5rem", fontWeight: "bold", marginBottom: "5px" }}
-      >
-        {tagName}
-      </Typography>
+      <Typography sx={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '5px' }}>{tagName}</Typography>
       <SortArticleBlock articles={articles} isCategory={false} />
     </>
   );

@@ -1,22 +1,55 @@
-import ReactLoading from "react-loading";
-import styled from "styled-components";
+import { useState, useEffect } from 'react';
+// @mui
+import { styled } from '@mui/material/styles';
+import { Player, Controls } from '@lottiefiles/react-lottie-player';
+import { Box } from '@mui/material';
+import lottieJson from '../../../../public/assets/loading2.json';
 
-const LoadingContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-`;
+// ----------------------------------------------------------------------
 
-export const Loading = () => {
+const StyledRoot = styled(Box)(() => ({
+  right: 0,
+  bottom: 0,
+  zIndex: 9998,
+  width: '100%',
+  height: '100%',
+  position: 'fixed',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  backgroundColor: '#fff',
+}));
+
+const StyledBox = styled(Box)(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+}));
+
+// ----------------------------------------------------------------------
+
+export function LoadingScreen() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) return null;
+
   return (
-    <LoadingContainer>
-      <ReactLoading width={64} height={64} color="#E4E7EC" type="spin" />
-    </LoadingContainer>
+    <StyledRoot>
+      <StyledBox>
+        <Player
+          lottieRef={(ref) => {
+            ref.playSegments([0, 138], true);
+          }}
+          autoplay
+          loop
+          src={lottieJson}
+          style={{ height: '300px', width: '300px' }}
+        >
+          <Controls visible={false} buttons={['play', 'repeat', 'frame', 'debug']} />
+        </Player>
+      </StyledBox>
+    </StyledRoot>
   );
-};
+}
