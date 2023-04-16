@@ -1,18 +1,20 @@
-import { useEffect, useState } from "react";
-import { getDataById } from "../../../common/firebaseFun";
-import Link from "next/link";
-import { Count } from "../../../common/articleType";
-import { SidebarText, SidebarTitle } from "../Sidebar.style";
-import { NumTag, TagContainer } from "./Category.style";
+import { useEffect, useState } from 'react';
+import { getDataById } from '../../../common/firebaseFun';
+import Link from 'next/link';
+import { Count } from '../../../common/articleType';
+import { SidebarText, SidebarTitle } from '../Sidebar.style';
+import { NumTag, TagContainer } from './Category.style';
 
 export const Category = () => {
   const [tagsCount, setTagsCount] = useState<Count>();
   useEffect(() => {
     const getTagsCount = async () => {
-      const targetCollection = "allTags";
-      const targetId = "tagArticlesCount";
-      const response = await getDataById(targetCollection, targetId);
-      setTagsCount(response?.count);
+      const targetCollection = 'allTags';
+      const targetId = 'tagArticlesCount';
+      const response = await getDataById<{ count: Count }>(targetCollection, targetId);
+      if (response) {
+        setTagsCount(response?.count);
+      }
     };
     getTagsCount();
   }, []);
