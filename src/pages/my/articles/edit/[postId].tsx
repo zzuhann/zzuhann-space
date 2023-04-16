@@ -1,25 +1,21 @@
-import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
-import { Count, IArticle } from "@/common/articleType";
-import {
-  getDataById,
-  getFirestoreDataById,
-  updateFirestoreById,
-} from "@/common/firebaseFun";
-import { Tags, Title } from "@/components/page/addPosts/AddPosts";
-import { Button, Title32px } from "@/components/common/Common";
-import { Tiptap } from "@/components/common/TipTapEditor";
-import { Stack } from "@mui/material";
-import { getLayout } from "@/layout";
+import { useRouter } from 'next/router';
+import { useEffect, useRef, useState } from 'react';
+import { Count, IArticle } from '@/common/articleType';
+import { getDataById, updateFirestoreById } from '@/common/firebaseFun';
+import { Tags, Title } from '@/features/addPosts/AddPosts';
+import { Button, Title32px } from '@/components/common/Common';
+import { Tiptap } from '@/components/TipTapEditor';
+import { Stack } from '@mui/material';
+import { getLayout } from '@/layout';
 
 const EditArticle = () => {
   const router = useRouter();
   const { postId } = router.query;
   const [articleDetail, setArticleDetail] = useState<IArticle>();
   const [tags, setTags] = useState<string[]>([]);
-  const [newOption, setNewOption] = useState<string>("");
-  const [context, setContext] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
+  const [newOption, setNewOption] = useState<string>('');
+  const [context, setContext] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
   const titleRef = useRef<HTMLInputElement>(null);
   const [tagArticlesCount, setTagArticlesCount] = useState<Count>();
 
@@ -42,15 +38,15 @@ const EditArticle = () => {
     }
 
     updateFirestoreById({
-      target: "allTags",
-      id: "tagArticlesCount",
+      target: 'allTags',
+      id: 'tagArticlesCount',
       data: { count: newCount },
     });
   };
 
   const onSubmit = () => {
     const newTitle = titleRef.current?.value;
-    const target = "articles";
+    const target = 'articles';
     const id = postId;
     if (!newTitle) return;
     if (!articleDetail) return;
@@ -64,8 +60,8 @@ const EditArticle = () => {
     updateTagCount(newOption);
     updateFirestoreById({ target, id: id as string, data: newArticle });
     updateFirestoreById({
-      target: "allTags",
-      id: "tags",
+      target: 'allTags',
+      id: 'tags',
       data: { tags: tags },
     });
     clear();
@@ -73,15 +69,15 @@ const EditArticle = () => {
 
   const clear = () => {
     if (titleRef.current) {
-      titleRef.current.value = "";
+      titleRef.current.value = '';
     }
-    setNewOption("");
-    setContext("");
+    setNewOption('');
+    setContext('');
   };
 
   useEffect(() => {
     const getArticleInfo = () => {
-      const collection = "articles";
+      const collection = 'articles';
       const response = getDataById(collection, postId as string);
       response.then((res) => {
         const articleInfo = res as IArticle;
@@ -104,11 +100,17 @@ const EditArticle = () => {
 
   useEffect(() => {
     const getTagArticlesCount = async () => {
-      const response = await getDataById("allTags", "tagArticlesCount");
-      setTagArticlesCount(response?.count);
+      const response = await getDataById<{ count: Count }>('allTags', 'tagArticlesCount');
+      if (response) {
+        setTagArticlesCount(response?.count);
+      }
+    };
+    const getTags = async () => {
+      const response = await getDataById('allTags', 'tags');
+      setTags((response as string[]) ?? []);
     };
     getTagArticlesCount();
-    getFirestoreDataById("allTags", "tags", undefined, setTags);
+    getTags();
   }, []);
 
   return (
@@ -122,17 +124,9 @@ const EditArticle = () => {
         setNewOption={setNewOption}
         defaultTag={articleDetail?.tag}
       />
-      {description && (
-        <Tiptap
-          context={context}
-          setContext={setContext}
-          type={"description"}
-        />
-      )}
-      {context && (
-        <Tiptap context={context} setContext={setContext} type={"context"} />
-      )}
-      <Button onClick={onSubmit} style={{ alignSelf: "flex-start" }}>
+      {description && <Tiptap context={context} setContext={setContext} type={'description'} />}
+      {context && <Tiptap context={context} setContext={setContext} type={'context'} />}
+      <Button onClick={onSubmit} style={{ alignSelf: 'flex-start' }}>
         送出
       </Button>
     </Stack>

@@ -2,10 +2,10 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { IArticleFirestore } from '@/common/articleType';
 import { getDataByWhere } from '@/common/firebaseFun';
-import { SortArticleBlock } from '@/components/common/SortArticleBlock';
+import { SortArticleBlock } from '@/components/SortArticleBlock';
 import { getLayout } from '@/layout';
 import { Typography } from '@mui/material';
-import { LoadingScreen } from '@/components/common/Loading';
+import { LoadingScreen } from '@/components/Loading';
 
 const TagArticlesList = () => {
   const router = useRouter();
@@ -17,7 +17,11 @@ const TagArticlesList = () => {
     const targetCollec = 'articles';
     const targetKey = 'tag';
     const targetValue = tagName as string;
-    getDataByWhere(targetCollec, targetKey, targetValue, setArticles);
+    const getData = async () => {
+      const data = await getDataByWhere(targetCollec, targetKey, targetValue);
+      setArticles(data as IArticleFirestore[]);
+    };
+    getData();
   }, [tagName]);
 
   if (!articles) return <LoadingScreen />;

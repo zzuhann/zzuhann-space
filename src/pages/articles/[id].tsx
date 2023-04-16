@@ -1,33 +1,21 @@
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { IArticleFirestore } from '@/common/articleType';
+import { IArticleFirestore, IArticleSSG } from '@/common/articleType';
 import { getDataById } from '@/common/firebaseFun';
-import { ArticleRead } from '@/components/common/ArticleRead';
+import { ArticleRead } from '@/components/ArticleRead';
 import { getLayout } from '@/layout';
 import Head from 'next/head';
-import { LoadingScreen } from '@/components/common/Loading';
+import { GetStaticProps } from 'next';
 
-const SingleArticle = () => {
-  const router = useRouter();
-  const { id } = router.query;
-  const [article, setArticle] = useState<IArticleFirestore>();
+type TProps = {
+  sortArticle: IArticleFirestore;
+};
 
-  useEffect(() => {
-    if (!id) return;
-    const getArticle = () => {
-      const targetCollec = 'articles';
-      getDataById(targetCollec, id as string).then((res) => setArticle(res as IArticleFirestore));
-    };
-    getArticle();
-  }, [id]);
-
-  if (!article) return <LoadingScreen />;
+const SingleArticle = ({ sortArticle }: TProps) => {
   return (
     <>
       <Head>
-        <title>{article.title}</title>
+        <title>{sortArticle.title}</title>
       </Head>
-      <ArticleRead article={article} isPreview={false} isLast={false} />
+      <ArticleRead article={sortArticle} isPreview={false} isLast={false} />
       {/* <NextArticle /> */}
     </>
   );
@@ -36,3 +24,37 @@ const SingleArticle = () => {
 SingleArticle.getLayout = getLayout;
 
 export default SingleArticle;
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const id = context.params?.id;
+  const getArticle = async () => {
+    if (typeof id !== 'string') return null;
+
+    const targetCollec = 'articles';
+    return await getDataById<IArticleSSG>(targetCollec, id);
+  };
+  const article = await getArticle();
+  const { createTime, updateTime } = article as IArticleSSG;
+
+  let sortArticle: IArticleFirestore = JSON.parse(JSON.stringify(article));
+
+  sortArticle = {
+    ...sortArticle,
+    createTime: createTime.toDate().toLocaleString() as string,
+    updateTime: updateTime.toDate().toLocaleString() as string,
+  };
+
+  return {
+    props: {
+      sortArticle,
+    },
+    revalidate: 1000,
+  };
+};
+
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: 'blocking',
+  };
+}

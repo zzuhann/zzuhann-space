@@ -1,3 +1,5 @@
+import { Timestamp } from 'firebase/firestore';
+
 export interface IArticle {
   title: string;
   content: string;
@@ -15,11 +17,22 @@ export interface ITimeFirestore {
   nanoseconds: number;
 }
 
+export interface IArticleSSG {
+  title: string;
+  content: string;
+  createTime: Timestamp;
+  updateTime: Timestamp;
+  author: string;
+  tag: string;
+  id?: string;
+  description: string;
+}
+
 export interface IArticleFirestore {
   title: string;
   content: string;
-  createTime: ITimeFirestore;
-  updateTime: ITimeFirestore;
+  createTime: string;
+  updateTime: string;
   author: string;
   tag: string;
   id?: string;

@@ -1,15 +1,15 @@
-import { collection, query, getDocs } from "firebase/firestore";
-import { db } from "@/firebase-config";
-import { useEffect, useState } from "react";
-import { MyArticle } from "@/components/page/myArticles";
-import { IArticleFirestore } from "@/common/articleType";
-import { getLayout } from "@/layout";
+import { collection, query, getDocs } from 'firebase/firestore';
+import { db } from '@/firebase-config';
+import { useEffect, useState } from 'react';
+import { MyArticle } from '@/features/myArticles';
+import { IArticleFirestore } from '@/common/articleType';
+import { getLayout } from '@/layout';
 
 const AllMyArticles = () => {
   const [articles, setArticles] = useState<IArticleFirestore[]>([]);
 
   async function getTargetCollections() {
-    const q = query(collection(db, "articles"));
+    const q = query(collection(db, 'articles'));
     const querySnapshot = await getDocs(q);
     const newArticles: IArticleFirestore[] = [];
     querySnapshot.forEach((doc) => {

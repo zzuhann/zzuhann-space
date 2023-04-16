@@ -1,28 +1,23 @@
-import { useEffect, useState } from 'react';
 import { IArticleFirestore } from '@/common/articleType';
 import { getCollection } from '@/common/firebaseFun';
-import { SortArticleBlock } from '@/components/common/SortArticleBlock';
+import { SortArticleBlock } from '@/components/SortArticleBlock';
 import { getLayout } from '@/layout';
-import { LoadingScreen } from '@/components/common/Loading';
+import { GetStaticProps } from 'next';
 
-const Articles = () => {
-  const [articles, setArticles] = useState<IArticleFirestore[]>();
-
-  useEffect(() => {
-    const getArticles = () => {
-      const targetCollec = 'articles';
-      getCollection(targetCollec, setArticles);
-    };
-    getArticles();
-  }, []);
-  if (!articles) return <LoadingScreen />;
-  return (
-    <>
-      <SortArticleBlock articles={articles} isCategory={false} />
-    </>
-  );
+const Articles = (allArticles: IArticleFirestore[]) => {
+  return <SortArticleBlock articles={allArticles} isCategory={false} />;
 };
 
 Articles.getLayout = getLayout;
 
 export default Articles;
+
+export const getStaticProps: GetStaticProps = async () => {
+  const allArticles = await getCollection<IArticleFirestore>('articles');
+
+  return {
+    props: {
+      allArticles,
+    },
+  };
+};

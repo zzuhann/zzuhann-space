@@ -1,21 +1,17 @@
-import * as React from "react";
-import Link from "next/link";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { IArticleFirestore } from "@/common/articleType";
-import { Dispatch, SetStateAction } from "react";
-import { delFireStoreDataById } from "@/common/firebaseFun";
-import { newDateToFormatString } from "@/common/commonFun";
-import { Button } from "@/components/common/Common";
-import {
-  ButtonContainer,
-  StyledTableCell,
-  StyledTableRow,
-} from "./MyArticle.style";
+import * as React from 'react';
+import Link from 'next/link';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import { IArticleFirestore } from '@/common/articleType';
+import { Dispatch, SetStateAction } from 'react';
+import { delFireStoreDataById } from '@/common/firebaseFun';
+import { newDateToFormatString } from '@/common/commonFun';
+import { Button } from '@/components/common/Common';
+import { ButtonContainer, StyledTableCell, StyledTableRow } from './MyArticle.style';
 
 type Props = {
   articles: IArticleFirestore[];
@@ -30,7 +26,7 @@ export function MyArticle({ articles, setArticles }: Props) {
   }
 
   function deleteArticle(index: number) {
-    const collection = "articles";
+    const collection = 'articles';
     const target = articles[index].id;
     if (target) {
       delFireStoreDataById(collection, target);
@@ -50,11 +46,9 @@ export function MyArticle({ articles, setArticles }: Props) {
         </TableHead>
         <TableBody>
           {articles.map((article, index) => (
-            <StyledTableRow key={article.createTime.seconds * 1000}>
+            <StyledTableRow key={article.title}>
               <StyledTableCell component="th" scope="row">
-                {newDateToFormatString(
-                  new Date(article.createTime.seconds * 1000)
-                )}
+                {newDateToFormatString(new Date(article.createTime))}
               </StyledTableCell>
               <StyledTableCell>{article.title}</StyledTableCell>
               <StyledTableCell>

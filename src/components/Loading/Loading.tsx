@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import { Player, Controls } from '@lottiefiles/react-lottie-player';
 import { Box } from '@mui/material';
-import lottieJson from '../../../../public/assets/loading2.json';
+import lottieJson from '../../../public/assets/loading2.json';
 
 // ----------------------------------------------------------------------
 

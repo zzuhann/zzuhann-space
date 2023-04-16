@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React, { createContext, useContext, useState } from 'react';
-import { LoadingScreen } from '../components/common/Loading';
+import { LoadingScreen } from '../components/Loading';
 
 interface LoadingType {
   showLoading: () => void;

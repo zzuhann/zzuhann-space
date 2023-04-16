@@ -1,28 +1,12 @@
-import {
-  Dispatch,
-  RefObject,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import { Autocomplete, Box, Stack, TextField, Typography } from "@mui/material";
-import { InputContainer, Label, TextInput } from "./AddPosts.style";
-import { Count } from "@/common/articleType";
-import {
-  getDataById,
-  getFirestoreDataById,
-  updateFirestoreById,
-  uploadFirestore,
-} from "@/common/firebaseFun";
-import { Tiptap } from "@/components/common/TipTapEditor/TipTapEditor";
-import { Button } from "@/components/common/Common";
+import { Dispatch, RefObject, SetStateAction, useEffect, useRef, useState } from 'react';
+import { Autocomplete, Stack, TextField, Typography } from '@mui/material';
+import { InputContainer, Label, TextInput } from './AddPosts.style';
+import { Count } from '@/common/articleType';
+import { getDataById, updateFirestoreById, uploadFirestore } from '@/common/firebaseFun';
+import { Tiptap } from '@/components/TipTapEditor';
+import { Button } from '@/components/common/Common';
 
-export const Title = ({
-  titleRef,
-}: {
-  titleRef: RefObject<HTMLInputElement>;
-}) => {
+export const Title = ({ titleRef }: { titleRef: RefObject<HTMLInputElement> }) => {
   return (
     <InputContainer>
       <Label htmlFor="title">標題</Label>
@@ -54,7 +38,7 @@ export const Tags = ({
         freeSolo
         value={newOption}
         options={tags}
-        sx={{ width: "100%" }}
+        sx={{ width: '100%' }}
         onChange={(event, newValue) => {
           if (!newValue) return;
           if (!tags.includes(newValue)) {
@@ -85,10 +69,10 @@ export const Tags = ({
 
 export const AddPosts = () => {
   const titleRef = useRef<HTMLInputElement>(null);
-  const [description, setDescription] = useState<string>("");
-  const [context, setContext] = useState<string>("");
+  const [description, setDescription] = useState<string>('');
+  const [context, setContext] = useState<string>('');
   const [tags, setTags] = useState<string[]>([]);
-  const [newOption, setNewOption] = useState<string>("");
+  const [newOption, setNewOption] = useState<string>('');
   const [tagArticlesCount, setTagArticlesCount] = useState<Count>();
 
   const updateTagCount = (tag: string) => {
@@ -101,8 +85,8 @@ export const AddPosts = () => {
     }
 
     updateFirestoreById({
-      target: "allTags",
-      id: "tagArticlesCount",
+      target: 'allTags',
+      id: 'tagArticlesCount',
       data: { count: tagArticlesCount },
     });
   };
@@ -114,13 +98,13 @@ export const AddPosts = () => {
 
     if (!title || !context || !description) return;
     const articleInfo = {
-      target: "articles",
+      target: 'articles',
       data: {
         title,
         content: context,
         createTime: new Date(),
         updateTime: new Date(),
-        author: "zzuhann",
+        author: 'zzuhann',
         tag: newOption,
         description: description,
       },
@@ -128,8 +112,8 @@ export const AddPosts = () => {
     updateTagCount(newOption);
     uploadFirestore(articleInfo);
     updateFirestoreById({
-      target: "allTags",
-      id: "tags",
+      target: 'allTags',
+      id: 'tags',
       data: { tags: tags },
     });
     clear();
@@ -137,41 +121,34 @@ export const AddPosts = () => {
 
   const clear = () => {
     if (titleRef.current) {
-      titleRef.current.value = "";
+      titleRef.current.value = '';
     }
-    setDescription("");
-    setNewOption("");
-    setContext("");
+    setDescription('');
+    setNewOption('');
+    setContext('');
   };
 
   useEffect(() => {
     const getTagArticlesCount = async () => {
-      const response = await getDataById("allTags", "tagArticlesCount");
+      const response = await getDataById('allTags', 'tagArticlesCount');
       setTagArticlesCount(response?.count);
     };
+    const getTags = async () => {
+      const response = await getDataById('allTags', 'tags');
+      setTags((response as string[]) ?? []);
+    };
     getTagArticlesCount();
-    getFirestoreDataById("allTags", "tags", undefined, setTags);
+    getTags();
   }, []);
 
   return (
     <Stack direction="column">
-      <Typography sx={{ fontSize: "32px", fontWeight: "bold" }}>
-        新增文章
-      </Typography>
+      <Typography sx={{ fontSize: '32px', fontWeight: 'bold' }}>新增文章</Typography>
       <Title titleRef={titleRef} />
-      <Tags
-        tags={tags}
-        setTags={setTags}
-        newOption={newOption}
-        setNewOption={setNewOption}
-      />
-      <Tiptap
-        context={description}
-        setContext={setDescription}
-        type={"description"}
-      />
-      <Tiptap context={context} setContext={setContext} type={"context"} />
-      <Button onClick={onSubmit} style={{ alignSelf: "flex-start" }}>
+      <Tags tags={tags} setTags={setTags} newOption={newOption} setNewOption={setNewOption} />
+      <Tiptap context={description} setContext={setDescription} type={'description'} />
+      <Tiptap context={context} setContext={setContext} type={'context'} />
+      <Button onClick={onSubmit} style={{ alignSelf: 'flex-start' }}>
         送出
       </Button>
     </Stack>

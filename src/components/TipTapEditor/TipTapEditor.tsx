@@ -1,36 +1,31 @@
-import {
-  useEditor,
-  EditorContent,
-  ReactNodeViewRenderer,
-  Editor,
-} from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import Highlight from "@tiptap/extension-highlight";
-import Typography from "@tiptap/extension-typography";
-import HorizontalRule from "@tiptap/extension-horizontal-rule";
-import Blockquote from "@tiptap/extension-blockquote";
-import Image from "@tiptap/extension-image";
-import Link from "@tiptap/extension-link";
-import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
-import PhotoIcon from "@mui/icons-material/Photo";
-import CodeIcon from "@mui/icons-material/Code";
-import InsertLinkIcon from "@mui/icons-material/InsertLink";
-import LinkOffIcon from "@mui/icons-material/LinkOff";
-import css from "highlight.js/lib/languages/css";
-import js from "highlight.js/lib/languages/javascript";
-import ts from "highlight.js/lib/languages/typescript";
-import html from "highlight.js/lib/languages/xml";
-import { lowlight } from "lowlight";
-import CodeBlock from "@/components/CodeBlock";
-import { ChangeEvent, Dispatch, SetStateAction, useCallback } from "react";
-import { uploadStorageImage } from "@/common/firebaseFun";
-import { InputTitle } from "@/components/page/addPosts/AddPosts.style";
-import styled from "styled-components";
+import { useEditor, EditorContent, ReactNodeViewRenderer, Editor } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
+import Highlight from '@tiptap/extension-highlight';
+import Typography from '@tiptap/extension-typography';
+import HorizontalRule from '@tiptap/extension-horizontal-rule';
+import Blockquote from '@tiptap/extension-blockquote';
+import Image from '@tiptap/extension-image';
+import Link from '@tiptap/extension-link';
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
+import PhotoIcon from '@mui/icons-material/Photo';
+import CodeIcon from '@mui/icons-material/Code';
+import InsertLinkIcon from '@mui/icons-material/InsertLink';
+import LinkOffIcon from '@mui/icons-material/LinkOff';
+import css from 'highlight.js/lib/languages/css';
+import js from 'highlight.js/lib/languages/javascript';
+import ts from 'highlight.js/lib/languages/typescript';
+import html from 'highlight.js/lib/languages/xml';
+import { lowlight } from 'lowlight';
+import CodeBlock from '@/components/CodeBlock';
+import { ChangeEvent, Dispatch, SetStateAction, useCallback } from 'react';
+import { uploadStorageImage } from '@/common/firebaseFun';
+import { InputTitle } from '@/features/addPosts/AddPosts.style';
+import styled from 'styled-components';
 
-lowlight.registerLanguage("html", html);
-lowlight.registerLanguage("css", css);
-lowlight.registerLanguage("js", js);
-lowlight.registerLanguage("ts", ts);
+lowlight.registerLanguage('html', html);
+lowlight.registerLanguage('css', css);
+lowlight.registerLanguage('js', js);
+lowlight.registerLanguage('ts', ts);
 
 const IconConainer = styled.div`
   display: flex;
@@ -62,33 +57,26 @@ const Menubar = ({
     <IconConainer>
       <ImageLabel addImage={addImage} />
       <CodeIcon onClick={addCodeStyle} />
-      <InsertLinkIcon
-        onClick={setLink}
-        className={editor?.isActive("link") ? "is-active" : ""}
-      />
-      <button onClick={unsetLink} disabled={!editor?.isActive("link")}>
+      <InsertLinkIcon onClick={setLink} className={editor?.isActive('link') ? 'is-active' : ''} />
+      <button onClick={unsetLink} disabled={!editor?.isActive('link')}>
         <LinkOffIcon />
       </button>
     </IconConainer>
   );
 };
 
-const ImageLabel = ({
-  addImage,
-}: {
-  addImage: (e: ChangeEvent<HTMLInputElement>) => void;
-}) => {
+const ImageLabel = ({ addImage }: { addImage: (e: ChangeEvent<HTMLInputElement>) => void }) => {
   return (
     <>
       <label htmlFor="image">
-        <PhotoIcon sx={{ cursor: "pointer" }} />
+        <PhotoIcon sx={{ cursor: 'pointer' }} />
       </label>
       <input
         type="file"
         accept="image/*"
         id="image"
         name="image"
-        style={{ display: "none" }}
+        style={{ display: 'none' }}
         onChange={(e) => addImage(e)}
       />
     </>
@@ -113,7 +101,7 @@ export const Tiptap = ({
       Blockquote,
       Image.configure({
         HTMLAttributes: {
-          class: "article-img",
+          class: 'article-img',
         },
       }),
       CodeBlockLowlight.extend({
@@ -152,8 +140,8 @@ export const Tiptap = ({
 
   const setLink = useCallback(() => {
     if (!editor) return;
-    const previousUrl = editor.getAttributes("link").href;
-    const url = window.prompt("URL", previousUrl);
+    const previousUrl = editor.getAttributes('link').href;
+    const url = window.prompt('URL', previousUrl);
 
     // cancelled
     if (url === null) {
@@ -161,14 +149,14 @@ export const Tiptap = ({
     }
 
     // empty
-    if (url === "") {
-      editor.chain().focus().extendMarkRange("link").unsetLink().run();
+    if (url === '') {
+      editor.chain().focus().extendMarkRange('link').unsetLink().run();
 
       return;
     }
 
     // update link
-    editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
+    editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
   }, [editor]);
 
   const unsetLink = () => {
@@ -178,11 +166,7 @@ export const Tiptap = ({
 
   return (
     <TipTapContainer>
-      {type === "description" ? (
-        <InputTitle>前言敘述</InputTitle>
-      ) : (
-        <InputTitle>文章內容</InputTitle>
-      )}
+      {type === 'description' ? <InputTitle>前言敘述</InputTitle> : <InputTitle>文章內容</InputTitle>}
       <Menubar
         addImage={addImage}
         addCodeStyle={addCodeStyle}
