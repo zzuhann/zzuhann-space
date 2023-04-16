@@ -1,22 +1,22 @@
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { IArticleFirestore } from "../../../common/articleType";
-import { getCollection } from "../../../common/firebaseFun";
-import { Button } from "../../../components/common/Common";
-import {
-  SidebarSingleContainer,
-  SidebarText,
-  SidebarTitle,
-} from "../Sidebar.style";
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { IArticleFirestore } from '../../../common/articleType';
+import { getCollection } from '../../../common/firebaseFun';
+import { Button } from '../../../components/common/Common';
+import { SidebarSingleContainer, SidebarText, SidebarTitle } from '../Sidebar.style';
 
 export const Latest = () => {
   const [articles, setArticles] = useState<IArticleFirestore[]>();
 
   useEffect(() => {
-    const getArticles = () => {
-      const targetCollec = "articles";
-      getCollection(targetCollec, setArticles);
+    const getArticles = async () => {
+      const targetCollec = 'articles';
+      const response = await getCollection<IArticleFirestore>(targetCollec);
+      if (response) {
+        setArticles(response);
+      }
     };
+
     getArticles();
   }, []);
 
@@ -28,10 +28,7 @@ export const Latest = () => {
           <SidebarText>{article.title}</SidebarText>
         </Link>
       ))}
-      <Link
-        href={"/articles"}
-        style={{ alignSelf: "center", marginTop: "10px" }}
-      >
+      <Link href={'/articles'} style={{ alignSelf: 'center', marginTop: '10px' }}>
         <Button>查看所有文章</Button>
       </Link>
     </SidebarSingleContainer>
