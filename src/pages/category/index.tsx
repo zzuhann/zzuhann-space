@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Count, IArticleFirestore } from '@/common/articleType';
+import { Count, IArticleFirestore, IArticleSSG } from '@/common/articleType';
 import { getCollection, getDataById } from '@/common/firebaseFun';
 import { SortArticleBlock } from '@/components/SortArticleBlock';
 import { TagsCount } from '@/components/TagsCount';
@@ -13,8 +13,19 @@ const CategoryArticles = () => {
   useEffect(() => {
     const getArticles = async () => {
       const targetCollec = 'articles';
-      const response = await getCollection(targetCollec);
-      setArticles(response as IArticleFirestore[]);
+      const response = await getCollection<IArticleSSG>(targetCollec);
+      const sortArticles = response.map((item) => {
+        const createTime = item.createTime.toDate().toLocaleString();
+        const updateTime = item.updateTime.toDate().toLocaleString();
+
+        return {
+          ...item,
+          createTime,
+          updateTime,
+        };
+      });
+
+      setArticles(sortArticles);
     };
     getArticles();
 

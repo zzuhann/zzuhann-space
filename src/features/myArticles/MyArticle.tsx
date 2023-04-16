@@ -14,8 +14,8 @@ import { Button } from '@/components/common/Common';
 import { ButtonContainer, StyledTableCell, StyledTableRow } from './MyArticle.style';
 
 type Props = {
-  articles: IArticleFirestore[];
-  setArticles: Dispatch<SetStateAction<IArticleFirestore[]>>;
+  articles: any[];
+  setArticles: Dispatch<SetStateAction<any[]>>;
 };
 
 export function MyArticle({ articles, setArticles }: Props) {
@@ -34,6 +34,14 @@ export function MyArticle({ articles, setArticles }: Props) {
     }
   }
 
+  const newArticles = articles.map((item) => {
+    return {
+      ...item,
+      createTime: item.createTime.toDate().toLocaleString(),
+      updateTime: item.updateTime.toDate().toLocaleString(),
+    };
+  });
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -45,10 +53,10 @@ export function MyArticle({ articles, setArticles }: Props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {articles.map((article, index) => (
+          {newArticles.map((article, index) => (
             <StyledTableRow key={article.title}>
               <StyledTableCell component="th" scope="row">
-                {newDateToFormatString(new Date(article.createTime))}
+                {article.createTime}
               </StyledTableCell>
               <StyledTableCell>{article.title}</StyledTableCell>
               <StyledTableCell>
