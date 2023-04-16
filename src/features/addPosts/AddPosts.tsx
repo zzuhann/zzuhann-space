@@ -130,8 +130,10 @@ export const AddPosts = () => {
 
   useEffect(() => {
     const getTagArticlesCount = async () => {
-      const response = await getDataById('allTags', 'tagArticlesCount');
-      setTagArticlesCount(response?.count);
+      const response = await getDataById<{ count: Count }>('allTags', 'tagArticlesCount');
+      if (response) {
+        setTagArticlesCount(response?.count);
+      }
     };
     const getTags = async () => {
       const response = await getDataById('allTags', 'tags');
