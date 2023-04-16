@@ -46,8 +46,10 @@ export const LoggedIn = () => {
   }
 
   const getData = async (user: User) => {
-    const users = await getDataById('users', user.uid);
-    updateloggedInState(users);
+    const users = await getDataById<userDocType>('users', user.uid);
+    if (users) {
+      updateloggedInState(users);
+    }
   };
   return (
     <Container>
