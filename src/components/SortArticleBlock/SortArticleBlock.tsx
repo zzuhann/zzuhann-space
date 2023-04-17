@@ -49,7 +49,7 @@ export const SortArticleBlock = ({ articles, isCategory }: Props) => {
             {sortArticles[key].map((item) => (
               <RowContainer key={item.id}>
                 <CategoryContainer>
-                  <DateText>{item.createTime}</DateText>
+                  <DateText>{newDateToFormatString(new Date(item.createTime))}</DateText>
 
                   {!isCategory && (
                     <Link href={`/articles/tags/${item.tag}`}>

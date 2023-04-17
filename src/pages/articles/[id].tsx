@@ -40,8 +40,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   sortArticle = {
     ...sortArticle,
-    createTime: createTime.toDate().toLocaleString() as string,
-    updateTime: updateTime.toDate().toLocaleString() as string,
+    createTime: createTime.toDate().toISOString() as string,
+    updateTime: updateTime.toDate().toISOString() as string,
   };
 
   return {
