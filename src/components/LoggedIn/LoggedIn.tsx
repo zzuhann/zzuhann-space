@@ -18,12 +18,6 @@ export const LoggedIn = () => {
   function updateloggedInState(user: userDocType) {
     const userData: AuthType = {
       isLoggedIn: true,
-      userInfo: {
-        email: user.email,
-        userName: user.name,
-        userImg: user.img,
-        userIntro: user.intro,
-      },
     };
     dispatch({ type: AuthActionKind.LOGGEDIN, payload: userData });
   }

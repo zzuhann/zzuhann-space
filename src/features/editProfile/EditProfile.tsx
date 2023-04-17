@@ -8,7 +8,7 @@ import { Container, ImageContainer, InputContainer, InputStyle, TextAreaStyle, T
 
 export const EditProfile = () => {
   const { state } = useContext(AuthContext);
-  const [selectedFile, setSelectedFile] = useState<string>(state.userInfo.userImg);
+  const [selectedFile, setSelectedFile] = useState<string>(state.userInfo?.userImg || '');
   const [imgFile, setImgFile] = useState<File | null>(null);
   const nameRef = useRef<HTMLInputElement | null>(null);
   const introRef = useRef<HTMLTextAreaElement | null>(null);
@@ -41,7 +41,7 @@ export const EditProfile = () => {
       data: {
         name: newName,
         intro: newIntro,
-        email: state.userInfo.email,
+        email: state.userInfo?.email,
         img: selectedFile,
       },
     });
@@ -49,7 +49,7 @@ export const EditProfile = () => {
 
   return (
     <Container>
-      <Title>Hello! {state.userInfo.userName}</Title>
+      <Title>Hello! {state.userInfo?.userName}</Title>
       {selectedFile ? (
         <>
           <ImageContainer>
@@ -70,11 +70,11 @@ export const EditProfile = () => {
       )}
       <InputContainer>
         <label htmlFor="name">名稱</label>
-        <InputStyle type="text" id="name" defaultValue={state.userInfo.userName} ref={nameRef} />
+        <InputStyle type="text" id="name" defaultValue={state.userInfo?.userName} ref={nameRef} />
       </InputContainer>
       <InputContainer>
         <label htmlFor="intro">簡介</label>
-        <TextAreaStyle defaultValue={state.userInfo.userIntro} ref={introRef} />
+        <TextAreaStyle defaultValue={state.userInfo?.userIntro} ref={introRef} />
       </InputContainer>
       <Button onClick={updateProfileInfo}>更新</Button>
     </Container>

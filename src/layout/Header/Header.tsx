@@ -2,7 +2,7 @@ import { onAuthStateChanged, signOut } from 'firebase/auth';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
-import { AuthType, userDocType } from '@/common/authType';
+import { AuthType, UserInfoType, userDocType } from '@/common/authType';
 import { HEADER_NAV } from '@/common/constant';
 import { auth } from '@/firebase-config';
 import { AuthContext } from '@/store/auth-context';
@@ -22,12 +22,6 @@ export const Header = () => {
   const loggedOut = () => {
     const userData: AuthType = {
       isLoggedIn: false,
-      userInfo: {
-        email: '',
-        userName: '',
-        userImg: '',
-        userIntro: '',
-      },
     };
     signOut(auth)
       .then(() => {
@@ -46,12 +40,6 @@ export const Header = () => {
     function updateloggedInState(user: userDocType) {
       const userData: AuthType = {
         isLoggedIn: true,
-        userInfo: {
-          email: user.email,
-          userName: user.name,
-          userImg: user.img,
-          userIntro: user.intro,
-        },
       };
       dispatch({ type: AuthActionKind.LOGGEDIN, payload: userData });
     }
@@ -78,6 +66,24 @@ export const Header = () => {
     window.addEventListener('resize', handleResize);
     handleResize();
     return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    const getAuthor = async () => {
+      const author = await getDataById<userDocType>('users', 'Xt8axl9b33aG6OuEled4U1SbtZ02');
+      if (author) {
+        const userData: AuthType = {
+          userInfo: {
+            email: author.email,
+            userName: author.name,
+            userImg: author.img,
+            userIntro: author.intro,
+          },
+        };
+        dispatch({ type: AuthActionKind.GETAUTHOR, payload: userData });
+      }
+    };
+    getAuthor();
   }, []);
 
   return (
