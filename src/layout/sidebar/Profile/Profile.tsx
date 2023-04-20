@@ -5,16 +5,16 @@ import { PersonalLink, PERSONAL_LINK } from '@/common/constant';
 import { SidebarSingleContainer, SidebarText, SidebarTitle } from '../Sidebar.style';
 import { Avatar, IconContainer } from './Profile.style';
 import { useContext } from 'react';
-import { AuthContext } from '@/store/auth-context';
+import { useStore } from '@/store/useStore';
 
 export const Profile = () => {
-  const { state } = useContext(AuthContext);
+  const { author } = useStore();
 
   return (
     <SidebarSingleContainer>
-      <Avatar alt="" src={state.userInfo?.userImg || ''} width="100" height="100" />
-      <SidebarTitle>{state.userInfo?.userName}</SidebarTitle>
-      <SidebarText>{state.userInfo?.userIntro}</SidebarText>
+      <Avatar alt="" src={author?.userImg || ''} width="100" height="100" />
+      <SidebarTitle>{author?.userName}</SidebarTitle>
+      <SidebarText>{author?.userIntro}</SidebarText>
       <IconContainer>
         <a href={PersonalLink[PERSONAL_LINK['GITHUB']]} target="_blank" rel="noopener noreferrer">
           <GitHubIcon />

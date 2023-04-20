@@ -1,25 +1,21 @@
-import { useContext, useRef } from 'react';
+import { useRef } from 'react';
 import { auth } from '@/firebase-config';
 import { User, signInWithEmailAndPassword } from 'firebase/auth';
 import { userDocType, AuthType } from '@/common/authType';
-import { AuthActionKind } from '@/store/auth-reducer';
-import { AuthContext } from '@/store/auth-context';
 import { useLoadingService } from '@/store/loading-context';
 import { Button } from '@/components/common/Common';
 import { Container, InputContainer, InputStyle, Title } from './LoggedIn.style';
 import { getDataById } from '@/common/firebaseFun';
+import { useStore } from '@/store/useStore';
 
 export const LoggedIn = () => {
+  const { updateUser } = useStore();
   const { showLoading, hideLoading } = useLoadingService();
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-  const { state, dispatch } = useContext(AuthContext);
 
-  function updateloggedInState(user: userDocType) {
-    const userData: AuthType = {
-      isLoggedIn: true,
-    };
-    dispatch({ type: AuthActionKind.LOGGEDIN, payload: userData });
+  function updateLoggedInState() {
+    updateUser({ isLoggedIn: true });
   }
 
   function signIn() {
@@ -42,7 +38,7 @@ export const LoggedIn = () => {
   const getData = async (user: User) => {
     const users = await getDataById<userDocType>('users', user.uid);
     if (users) {
-      updateloggedInState(users);
+      updateLoggedInState();
     }
   };
   return (

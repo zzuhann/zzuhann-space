@@ -1,12 +1,11 @@
-import { useContext } from 'react';
-import { AuthContext } from '@/store/auth-context';
 import { LoggedIn } from '@/components/LoggedIn';
 import { EditProfile } from '@/features/editProfile';
+import { useStore } from '@/store/useStore';
 
 const Home = () => {
-  const { state } = useContext(AuthContext);
+  const { user } = useStore();
 
-  return <>{state.isLoggedIn ? <EditProfile /> : <LoggedIn />}</>;
+  return <>{user.isLoggedIn ? <EditProfile /> : <LoggedIn />}</>;
 };
 
 export default Home;

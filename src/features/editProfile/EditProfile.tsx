@@ -1,14 +1,14 @@
 import { Stack } from '@mui/material';
 import Image from 'next/image';
-import { useContext, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { updateFirestoreById, uploadStorageImage } from '@/common/firebaseFun';
-import { AuthContext } from '@/store/auth-context';
 import { Button } from '@/components/common/Common';
 import { Container, ImageContainer, InputContainer, InputStyle, TextAreaStyle, Title } from './EditProfile.style';
+import { useStore } from '@/store/useStore';
 
 export const EditProfile = () => {
-  const { state } = useContext(AuthContext);
-  const [selectedFile, setSelectedFile] = useState<string>(state.userInfo?.userImg || '');
+  const { author, updateAuthor } = useStore();
+  const [selectedFile, setSelectedFile] = useState<string>(author?.userImg || '');
   const [imgFile, setImgFile] = useState<File | null>(null);
   const nameRef = useRef<HTMLInputElement | null>(null);
   const introRef = useRef<HTMLTextAreaElement | null>(null);
@@ -41,15 +41,21 @@ export const EditProfile = () => {
       data: {
         name: newName,
         intro: newIntro,
-        email: state.userInfo?.email,
+        email: author?.email,
         img: selectedFile,
       },
+    });
+    updateAuthor({
+      userName: newName,
+      userIntro: newIntro,
+      email: author?.email,
+      userImg: selectedFile,
     });
   };
 
   return (
     <Container>
-      <Title>Hello! {state.userInfo?.userName}</Title>
+      <Title>Hello! {author?.userName}</Title>
       {selectedFile ? (
         <>
           <ImageContainer>
@@ -70,11 +76,11 @@ export const EditProfile = () => {
       )}
       <InputContainer>
         <label htmlFor="name">名稱</label>
-        <InputStyle type="text" id="name" defaultValue={state.userInfo?.userName} ref={nameRef} />
+        <InputStyle type="text" id="name" defaultValue={author?.userName} ref={nameRef} />
       </InputContainer>
       <InputContainer>
         <label htmlFor="intro">簡介</label>
-        <TextAreaStyle defaultValue={state.userInfo?.userIntro} ref={introRef} />
+        <TextAreaStyle defaultValue={author?.userIntro} ref={introRef} />
       </InputContainer>
       <Button onClick={updateProfileInfo}>更新</Button>
     </Container>
