@@ -78,7 +78,8 @@
     "state": "link:@tiptap/pm/state",
     "styled-components": "^5.3.6",
     "typescript": "4.9.4",
-    "utils": "link:@mui/material/utils"
+    "utils": "link:@mui/material/utils",
+    "zustand": "^4.3.7"
   },
   "devDependencies": {
     "@types/styled-components": "^5.1.26",

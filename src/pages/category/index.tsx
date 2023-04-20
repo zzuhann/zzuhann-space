@@ -15,8 +15,8 @@ const CategoryArticles = () => {
       const targetCollec = 'articles';
       const response = await getCollection<IArticleSSG>(targetCollec);
       const sortArticles = response.map((item) => {
-        const createTime = item.createTime.toDate().toLocaleString();
-        const updateTime = item.updateTime.toDate().toLocaleString();
+        const createTime = item.createTime.toDate().toISOString();
+        const updateTime = item.updateTime.toDate().toISOString();
 
         return {
           ...item,

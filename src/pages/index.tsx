@@ -20,8 +20,8 @@ export default Page;
 export const getStaticProps: GetStaticProps = async () => {
   const allArticles = await getCollection<IArticleSSG>('articles');
   const sortArticles = allArticles.map((item) => {
-    const createTime = item.createTime.toDate().toLocaleString();
-    const updateTime = item.updateTime.toDate().toLocaleString();
+    const createTime = item.createTime.toDate().toISOString();
+    const updateTime = item.updateTime.toDate().toISOString();
 
     return {
       ...item,

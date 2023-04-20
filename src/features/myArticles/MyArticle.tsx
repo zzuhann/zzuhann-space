@@ -37,8 +37,8 @@ export function MyArticle({ articles, setArticles }: Props) {
   const newArticles = articles.map((item) => {
     return {
       ...item,
-      createTime: item.createTime.toDate().toLocaleString(),
-      updateTime: item.updateTime.toDate().toLocaleString(),
+      createTime: item.createTime.toDate().toISOString(),
+      updateTime: item.updateTime.toDate().toISOString(),
     };
   });
 
@@ -56,7 +56,7 @@ export function MyArticle({ articles, setArticles }: Props) {
           {newArticles.map((article, index) => (
             <StyledTableRow key={article.title}>
               <StyledTableCell component="th" scope="row">
-                {article.createTime}
+                {newDateToFormatString(new Date(article.createTime))}
               </StyledTableCell>
               <StyledTableCell>{article.title}</StyledTableCell>
               <StyledTableCell>

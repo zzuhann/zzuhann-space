@@ -5,7 +5,7 @@ export interface userDocType {
   name: string;
 }
 
-interface UserInfoType {
+export interface UserInfoType {
   userName: string;
   email: string;
   userImg: string;
@@ -13,6 +13,6 @@ interface UserInfoType {
 }
 
 export interface AuthType {
-  isLoggedIn: boolean;
-  userInfo: UserInfoType;
+  isLoggedIn?: boolean;
+  userInfo?: UserInfoType;
 }
