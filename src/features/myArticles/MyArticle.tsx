@@ -6,12 +6,12 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { IArticleFirestore } from '@/common/articleType';
-import { Dispatch, SetStateAction } from 'react';
-import { delFireStoreDataById } from '@/common/firebaseFun';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { delFireStoreDataById, getDataById, updateFirestoreById } from '@/common/firebaseFun';
 import { newDateToFormatString } from '@/common/commonFun';
 import { Button } from '@/components/common/Common';
 import { ButtonContainer, StyledTableCell, StyledTableRow } from './MyArticle.style';
+import { Count } from '@/common/articleType';
 
 type Props = {
   articles: any[];
@@ -19,6 +19,24 @@ type Props = {
 };
 
 export function MyArticle({ articles, setArticles }: Props) {
+  const [tagArticlesCount, setTagArticlesCount] = useState<Count>();
+
+  const updateTagCount = (tag: string) => {
+    if (!tagArticlesCount) return;
+
+    if (tagArticlesCount[tag] === 1) {
+      delete tagArticlesCount[tag];
+    } else {
+      tagArticlesCount[tag] -= 1;
+    }
+
+    updateFirestoreById({
+      target: 'allTags',
+      id: 'tagArticlesCount',
+      data: { count: tagArticlesCount },
+    });
+  };
+
   function deleteArticleUpdateState(index: number) {
     const newArticles = [...articles];
     newArticles.splice(index, 1);
@@ -31,6 +49,7 @@ export function MyArticle({ articles, setArticles }: Props) {
     if (target) {
       delFireStoreDataById(collection, target);
       deleteArticleUpdateState(index);
+      updateTagCount(articles[index].tag);
     }
   }
 
@@ -41,6 +60,16 @@ export function MyArticle({ articles, setArticles }: Props) {
       updateTime: item.updateTime.toDate().toISOString(),
     };
   });
+
+  useEffect(() => {
+    const getTagArticlesCount = async () => {
+      const response = await getDataById<{ count: Count }>('allTags', 'tagArticlesCount');
+      if (response) {
+        setTagArticlesCount(response?.count);
+      }
+    };
+    getTagArticlesCount();
+  }, []);
 
   return (
     <TableContainer component={Paper}>
