@@ -54,7 +54,6 @@
 * {
   box-sizing: border-box;
   padding: 0;
-  margin: 0;
   color: #3c3c3c;
   font-family: 'Noto Sans TC';
 }
@@ -79,4 +78,15 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+p {
+  margin-bottom: 1.8rem;
+  letter-spacing: 0.3px;
+}
+
+blockquote {
+  padding-left: 0.5rem;
+  border-left: 2px solid rgba(13, 13, 13, 0.5);
+  margin-left: 1rem;
 }

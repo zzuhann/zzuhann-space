@@ -33,5 +33,6 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       sortArticles,
     },
+    revalidate: 100,
   };
 };
