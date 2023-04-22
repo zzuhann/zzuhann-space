@@ -136,8 +136,10 @@ export const AddPosts = () => {
       }
     };
     const getTags = async () => {
-      const response = await getDataById('allTags', 'tags');
-      setTags((response as string[]) ?? []);
+      const response = await getDataById<{ tags: string[] }>('allTags', 'tags');
+      if (response) {
+        setTags((response.tags as string[]) ?? []);
+      }
     };
     getTagArticlesCount();
     getTags();
