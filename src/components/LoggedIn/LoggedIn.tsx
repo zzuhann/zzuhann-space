@@ -9,7 +9,7 @@ import { getDataById } from '@/common/firebaseFun';
 import { useStore } from '@/store/useStore';
 
 export const LoggedIn = () => {
-  const { updateUser } = useStore();
+  const { updateUser, updateAuthor } = useStore();
   const { showLoading, hideLoading } = useLoadingService();
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
@@ -39,6 +39,14 @@ export const LoggedIn = () => {
     const users = await getDataById<userDocType>('users', user.uid);
     if (users) {
       updateLoggedInState();
+      if (user.uid === 'Xt8axl9b33aG6OuEled4U1SbtZ02') {
+        updateAuthor({
+          userName: users.name,
+          userIntro: users.intro,
+          email: users.email,
+          userImg: users.img,
+        });
+      }
     }
   };
   return (
