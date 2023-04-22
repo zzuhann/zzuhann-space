@@ -14,6 +14,10 @@ const SingleArticle = ({ sortArticle }: TProps) => {
     <>
       <Head>
         <title>{sortArticle.title}</title>
+        <meta charSet="UTF-8" />
+        <meta name="description" content={sortArticle.description} />
+        <meta property="og:title" content={sortArticle.title} />
+        <meta property="og:description" content={sortArticle.description} />
       </Head>
       <ArticleRead article={sortArticle} isPreview={false} isLast={false} />
       {/* <NextArticle /> */}
