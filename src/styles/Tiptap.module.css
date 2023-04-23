@@ -25,7 +25,7 @@ code {
   background: #ffeff0;
   word-wrap: break-word;
   -webkit-box-decoration-break: clone;
-          box-decoration-break: clone;
+  box-decoration-break: clone;
   padding: 0.1rem 0.3rem 0.2rem;
   border-radius: 0.2rem;
 }
@@ -34,7 +34,7 @@ code {
   width: 600px;
   height: 350px;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 
 .ProseMirror hr {
@@ -47,7 +47,7 @@ code {
   padding-left: 0.5rem;
   border-left: 2px solid rgba(13, 13, 13, 0.5);
   margin-left: 1rem;
-} 
+}
 .ProseMirror {
   border-radius: 3px;
   border: 1px solid #b3b3b3;
@@ -64,7 +64,7 @@ code {
 .ProseMirror pre {
   background: #0d0d0d;
   color: #fff;
-  font-family: "JetBrainsMono", monospace;
+  font-family: 'JetBrainsMono', monospace;
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
 }
@@ -124,8 +124,10 @@ code {
 }
 
 .article-img {
-  width: 600px;
-  height: 350px;
-  -o-object-fit: cover;
-     object-fit: cover;
-}/*# sourceMappingURL=Tiptap.module.css.map */
+  -o-object-fit: contain;
+  object-fit: contain;
+  width: 100%;
+  aspect-ratio: 1;
+  max-width: 600px;
+  max-height: 350px;
+} /*# sourceMappingURL=Tiptap.module.css.map */
