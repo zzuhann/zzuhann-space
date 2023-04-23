@@ -10,6 +10,11 @@ type TProps = {
 };
 
 const SingleArticle = ({ sortArticle }: TProps) => {
+  const html = sortArticle.description; // 這裡是取得 HTML 字串的部分
+  const regex = /<p>(.*?)<\/p>/g;
+  const matches = html.matchAll(regex);
+  const paragraphs = Array.from(matches, (match) => match[1]).join(' ');
+
   return (
     <>
       <Head>
@@ -17,7 +22,7 @@ const SingleArticle = ({ sortArticle }: TProps) => {
         <meta charSet="UTF-8" />
         <meta name="description" content={sortArticle.description} />
         <meta property="og:title" content={sortArticle.title} />
-        <meta property="og:description" content={sortArticle.description} />
+        <meta property="og:description" content={paragraphs} />
       </Head>
       <ArticleRead article={sortArticle} isPreview={false} isLast={false} />
       {/* <NextArticle /> */}
