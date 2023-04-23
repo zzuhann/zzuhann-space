@@ -17,7 +17,7 @@ import ts from 'highlight.js/lib/languages/typescript';
 import html from 'highlight.js/lib/languages/xml';
 import { lowlight } from 'lowlight';
 import CodeBlock from '@/components/CodeBlock';
-import { ChangeEvent, Dispatch, SetStateAction, useCallback } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
 import { uploadStorageImage } from '@/common/firebaseFun';
 import { InputTitle } from '@/features/addPosts/AddPosts.style';
 import styled from 'styled-components';
@@ -92,32 +92,8 @@ export const Tiptap = ({
   setContext: Dispatch<SetStateAction<string>>;
   type: string;
 }) => {
-  const editor = useEditor({
-    extensions: [
-      StarterKit,
-      Highlight,
-      Typography,
-      HorizontalRule,
-      Blockquote,
-      Image.configure({
-        HTMLAttributes: {
-          class: 'article-img',
-        },
-      }),
-      CodeBlockLowlight.extend({
-        addNodeView() {
-          return ReactNodeViewRenderer(CodeBlock);
-        },
-      }).configure({ lowlight }),
-      Link.configure({
-        openOnClick: false,
-      }),
-    ],
-    content: `${context}`,
-    onUpdate: ({ editor }) => {
-      setContext(() => editor.getHTML());
-    },
-  });
+  const [editor, setEditor] = useState<Editor | null>(null);
+  const editorRef = useRef<Editor | null>(null);
 
   const addCodeStyle = () => {
     if (editor) {
@@ -126,14 +102,15 @@ export const Tiptap = ({
   };
 
   const attachImageAfterEditor = (url: string) => {
-    if (!editor) return;
-    editor.chain().focus().setImage({ src: url }).run();
+    if (!editorRef.current) return;
+    editorRef.current.commands.setImage({ src: url });
   };
 
   const addImage = (e: ChangeEvent<HTMLInputElement>) => {
     const allFiles = e.target.files;
     if (allFiles && editor) {
       const image = allFiles[0];
+      if (!!image.name) return;
       uploadStorageImage(image.name, image, attachImageAfterEditor);
     }
   };
@@ -163,6 +140,41 @@ export const Tiptap = ({
     if (!editor) return;
     editor.chain().focus().unsetLink().run();
   };
+
+  useEffect(() => {
+    const editor = new Editor({
+      extensions: [
+        StarterKit,
+        Highlight,
+        Typography,
+        HorizontalRule,
+        Blockquote,
+        Image.configure({
+          HTMLAttributes: {
+            class: 'article-img',
+          },
+        }),
+        CodeBlockLowlight.extend({
+          addNodeView() {
+            return ReactNodeViewRenderer(CodeBlock);
+          },
+        }).configure({ lowlight }),
+        Link.configure({
+          openOnClick: false,
+        }),
+      ],
+      content: `${context}`,
+      onUpdate: ({ editor }) => {
+        setContext(() => editor.getHTML());
+      },
+    });
+    setEditor(editor);
+    editorRef.current = editor;
+
+    return () => {
+      editor?.destroy();
+    };
+  }, []);
 
   return (
     <TipTapContainer>

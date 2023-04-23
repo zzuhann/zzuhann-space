@@ -150,8 +150,8 @@ export const AddPosts = () => {
       <Typography sx={{ fontSize: '32px', fontWeight: 'bold' }}>新增文章</Typography>
       <Title titleRef={titleRef} />
       <Tags tags={tags} setTags={setTags} newOption={newOption} setNewOption={setNewOption} />
-      <Tiptap context={description} setContext={setDescription} type={'description'} />
-      <Tiptap context={context} setContext={setContext} type={'context'} />
+      <Tiptap key="description" context={description} setContext={setDescription} type={'description'} />
+      <Tiptap key="context" context={context} setContext={setContext} type={'context'} />
       <Button onClick={onSubmit} style={{ alignSelf: 'flex-start' }}>
         送出
       </Button>
