@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const SidebarColumnContainer = styled.div`
   display: flex;
@@ -30,8 +30,6 @@ export const SidebarSingleContainer = styled.div`
 export const SidebarText = styled.div`
   font-size: 16px;
   letter-spacing: 0.5px;
-  @media (max-width: 878px) {
-    align-self: center;
-    text-align: center;
-  }
+  align-self: center;
+  text-align: center;
 `;
