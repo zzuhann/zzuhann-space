@@ -1,11 +1,6 @@
-import Link from "next/link";
-import { Count } from "@/common/articleType";
-import {
-  AllCountContainer,
-  CountContainer,
-  TagCountContainer,
-  TagName,
-} from "./TagsCount.style";
+import Link from 'next/link';
+import { Count } from '@/common/articleType';
+import { AllCountContainer, CountContainer, TagCountContainer, TagName } from './TagsCount.style';
 
 export const TagsCount = ({ tagsCount }: { tagsCount: Count }) => {
   return (

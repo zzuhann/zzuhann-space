@@ -1,7 +1,7 @@
-import { Category } from "./Category";
-import { Latest } from "./Latest";
-import { Profile } from "./Profile";
-import { SidebarColumnContainer } from "./Sidebar.style";
+import { Category } from './Category';
+import { Latest } from './Latest';
+import { Profile } from './Profile';
+import { SidebarColumnContainer } from './Sidebar.style';
 
 export const Sidebar = () => {
   return (

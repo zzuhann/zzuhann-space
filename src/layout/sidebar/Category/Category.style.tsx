@@ -1,12 +1,10 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const TagContainer = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  @media (max-width: 878px) {
-    justify-content: center;
-  }
 `;
 
 export const NumTag = styled.div`

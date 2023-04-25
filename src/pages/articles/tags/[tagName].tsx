@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { IArticleFirestore } from '@/common/articleType';
+import { IArticleFirestore, IArticleSSG } from '@/common/articleType';
 import { getDataByWhere } from '@/common/firebaseFun';
 import { SortArticleBlock } from '@/components/SortArticleBlock';
 import { getLayout } from '@/layout';
@@ -19,7 +19,16 @@ const TagArticlesList = () => {
     const targetValue = tagName as string;
     const getData = async () => {
       const data = await getDataByWhere(targetCollec, targetKey, targetValue);
-      setArticles(data as IArticleFirestore[]);
+      const newArticles = (data as IArticleSSG[]).map((item) => {
+        const createTime = item.createTime.toDate().toISOString();
+        const updateTime = item.updateTime.toDate().toISOString();
+        return {
+          ...item,
+          createTime,
+          updateTime,
+        };
+      });
+      setArticles(newArticles);
     };
     getData();
   }, [tagName]);
