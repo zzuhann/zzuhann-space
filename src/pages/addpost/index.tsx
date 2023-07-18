@@ -1,8 +1,8 @@
-import { AddPosts } from '@/features/addPosts';
+import PostForm from '@/features/postForm/PostForm';
 import { getLayout } from '@/layout';
 
 const Page = () => {
-  return <AddPosts />;
+  return <PostForm />;
 };
 
 Page.getLayout = getLayout;

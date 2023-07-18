@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import { userDocType } from '@/common/authType';
 import { HEADER_NAV } from '@/common/constant';
 import { auth } from '@/firebase-config';
-import { useTranslation } from 'react-i18next';
 import logo from '../../../public/blogLogo.png';
 import { BlackMask, FlexContainer, NavLink, SideMenuContainer } from './Header.style';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -14,7 +13,6 @@ import { TAuthor, useStore } from '@/store/useStore';
 
 export const Header = () => {
   const { user, updateUser, updateAuthor } = useStore();
-  const { t } = useTranslation();
   const [showMenu, setShowMenu] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
@@ -93,10 +91,10 @@ export const Header = () => {
       <BlackMask onClick={handleShowMenu} isShow={isSmallScreen && showMenu} />
       <SideMenuContainer isShow={isSmallScreen && showMenu}>
         <NavLink onClick={handleShowMenu} href={`/${HEADER_NAV.ARTICLE}`}>
-          {t(`HEADER.${HEADER_NAV['ARTICLE']}`)}
+          所有文章
         </NavLink>
         <NavLink onClick={handleShowMenu} href={`/${HEADER_NAV.CATEGORY}`}>
-          {t(`HEADER.${HEADER_NAV['CATEGORY']}`)}
+          分類
         </NavLink>
         {/* <NavLink onClick={handleShowMenu} href={`/${HEADER_NAV.ABOUT_ME}`}>
           {t(`HEADER.${HEADER_NAV["ABOUT_ME"]}`)}
@@ -104,7 +102,7 @@ export const Header = () => {
         {user.isLoggedIn && (
           <>
             <NavLink onClick={handleShowMenu} href={`/${HEADER_NAV.ADD_POST}`}>
-              {t(`HEADER.${HEADER_NAV['ADD_POST']}`)}
+              新增文章
             </NavLink>
             <div
               style={{ marginLeft: '25px' }}
@@ -113,23 +111,23 @@ export const Header = () => {
                 handleShowMenu();
               }}
             >
-              {t(`HEADER.${HEADER_NAV['LOGGED_OUT']}`)}
+              登出
             </div>
           </>
         )}
       </SideMenuContainer>
       {!isSmallScreen && (
         <>
-          <NavLink href={`/${HEADER_NAV.ARTICLE}`}>{t(`HEADER.${HEADER_NAV['ARTICLE']}`)}</NavLink>
-          <NavLink href={`/${HEADER_NAV.CATEGORY}`}>{t(`HEADER.${HEADER_NAV['CATEGORY']}`)}</NavLink>
+          <NavLink href={`/${HEADER_NAV.ARTICLE}`}>所有文章</NavLink>
+          <NavLink href={`/${HEADER_NAV.CATEGORY}`}>分類</NavLink>
           {/* <NavLink href={`/${HEADER_NAV.ABOUT_ME}`}>
             {t(`HEADER.${HEADER_NAV["ABOUT_ME"]}`)}
           </NavLink> */}
           {user.isLoggedIn && (
             <>
-              <NavLink href={`/${HEADER_NAV.ADD_POST}`}>{t(`HEADER.${HEADER_NAV['ADD_POST']}`)}</NavLink>
+              <NavLink href={`/${HEADER_NAV.ADD_POST}`}>新增文章</NavLink>
               <div style={{ marginLeft: '25px' }} onClick={loggedOut}>
-                {t(`HEADER.${HEADER_NAV['LOGGED_OUT']}`)}
+                登出
               </div>
             </>
           )}

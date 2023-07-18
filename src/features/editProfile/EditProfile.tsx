@@ -23,11 +23,11 @@ export const EditProfile = () => {
     setImgFile(null);
   };
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
     if (!imgFile) return;
-    uploadStorageImage('profileImg', imgFile, setSelectedFile);
-    console.log('檔案已上傳');
+    const url = await uploadStorageImage('profileImg', imgFile);
+    setSelectedFile(url);
   };
 
   const updateProfileInfo = () => {

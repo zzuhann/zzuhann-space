@@ -1,12 +1,15 @@
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { Count, IArticle } from '@/common/articleType';
-import { getDataById, updateFirestoreById } from '@/common/firebaseFun';
-import { Tags, Title } from '@/features/addPosts/AddPosts';
+import { getDataById, updateFirestoreById, uploadStorageImage } from '@/common/firebaseFun';
 import { Button, Title32px } from '@/components/common/Common';
-import { Tiptap } from '@/components/TipTapEditor';
 import { Stack } from '@mui/material';
 import { getLayout } from '@/layout';
+import { Title } from '@/features/postForm/component/Title';
+import { Tags } from '@/features/postForm/component/Tags';
+import { ContentState, EditorState, convertFromHTML, convertToRaw } from 'draft-js';
+import DraftEditor from '@/components/DraftEditor/DraftEditor';
+import draftToHtml from 'draftjs-to-html';
 
 const EditArticle = () => {
   const router = useRouter();
@@ -18,6 +21,14 @@ const EditArticle = () => {
   const [description, setDescription] = useState<string>('');
   const titleRef = useRef<HTMLInputElement>(null);
   const [tagArticlesCount, setTagArticlesCount] = useState<Count>();
+  const [contentEditorState, setContentEditorState] = useState(EditorState.createEmpty());
+  const [descriptionEditorState, setDescriptionEditorState] = useState(EditorState.createEmpty());
+  const [uploadImages, setUploadImages] = useState<
+    {
+      file: File;
+      localSrc: string;
+    }[]
+  >([]);
 
   const updateTagCount = (tag: string) => {
     if (!tagArticlesCount) return;
@@ -75,16 +86,49 @@ const EditArticle = () => {
     setContext('');
   };
 
+  const onContentEditorStateChange = (newEditorState: EditorState) => {
+    setContentEditorState(newEditorState);
+    setContext(draftToHtml(convertToRaw(newEditorState.getCurrentContent())));
+  };
+
+  const onDescriptionEditorStateChange = (newEditorState: EditorState) => {
+    setDescriptionEditorState(newEditorState);
+    setDescription(draftToHtml(convertToRaw(newEditorState.getCurrentContent())));
+  };
+
+  const _uploadImageCallBack = async (file: File) => {
+    const uploadedImages = uploadImages;
+    const image = file;
+    const url = await uploadStorageImage(image.name, image);
+
+    const imageObject = {
+      file: file,
+      localSrc: url,
+    };
+    uploadedImages.push(imageObject);
+    setUploadImages(uploadImages);
+
+    return new Promise((resolve, reject) => {
+      resolve({ data: { link: imageObject.localSrc } });
+    });
+  };
+
   useEffect(() => {
     const getArticleInfo = () => {
       const collection = 'articles';
       const response = getDataById(collection, postId as string);
       response.then((res) => {
         const articleInfo = res as IArticle;
+        const contentBlock = convertFromHTML(articleInfo.content);
+        const initialContentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+        const descriptionBlock = convertFromHTML(articleInfo.description);
+        const initialDescriptionState = ContentState.createFromBlockArray(descriptionBlock.contentBlocks);
         setArticleDetail(articleInfo);
         setNewOption(articleInfo.tag);
         setContext(articleInfo.content);
+        setContentEditorState(EditorState.createWithContent(initialContentState));
         setDescription(articleInfo.description);
+        setDescriptionEditorState(EditorState.createWithContent(initialDescriptionState));
       });
     };
     if (postId) {
@@ -124,8 +168,22 @@ const EditArticle = () => {
         setNewOption={setNewOption}
         defaultTag={articleDetail?.tag}
       />
-      {description && <Tiptap context={context} setContext={setContext} type={'description'} />}
-      {context && <Tiptap context={context} setContext={setContext} type={'context'} />}
+      {description && (
+        <DraftEditor
+          editorState={descriptionEditorState}
+          onEditorStateChange={onDescriptionEditorStateChange}
+          _uploadImageCallBack={_uploadImageCallBack}
+          type="description"
+        />
+      )}
+      {context && (
+        <DraftEditor
+          editorState={contentEditorState}
+          onEditorStateChange={onContentEditorStateChange}
+          _uploadImageCallBack={_uploadImageCallBack}
+          type="content"
+        />
+      )}
       <Button onClick={onSubmit} style={{ alignSelf: 'flex-start' }}>
         送出
       </Button>
