@@ -1,14 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   images: {
-    domains: ["firebasestorage.googleapis.com"],
+    domains: ['firebasestorage.googleapis.com'],
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "fluffy-18025.web.app",
-        port: "",
-        pathname: "/static/media/**",
+        protocol: 'https',
+        hostname: 'fluffy-18025.web.app',
+        port: '',
+        pathname: '/static/media/**',
       },
     ],
   },

@@ -1,8 +1,7 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
-import { ReactElement, ReactNode, useReducer } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import { LoadingProvider } from '../store/loading-context';
-import '../../public/locales/i18n/i18n';
 import { NextPage } from 'next';
 
 export type NextPageWithLayout = NextPage & {
